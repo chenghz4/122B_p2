@@ -1,32 +1,20 @@
 
-
 function handleStarResult(resultData) {
-	var starTableElement = jQuery("#star_table");
-	var tableHeaderHtml = 			
-		"<thead>" + 
-			"<tr>" +
-				"<th>Name</th>" +
-				"<th>Birth year</th>" +
-			"</tr>" +
-		"</thead>";
-	
-	starTableElement.append(tableHeaderHtml);
-	
-	var tableBodyHtml = "";
-	
-	tableBodyHtml += "<tbody>";
-	for (var i = 0; i < 10; i++) {
-		tableBodyHtml +=
-				"<tr>" +
-				  "<th>" + resultData[i]["star_name"] + "</th>" +
-				  "<th>" + resultData[i]["star_dob"] + "</th>" +
-				"</tr>"
+	console.log("handleStarResult: populating star table from resultData");
+
+	// populate the star table
+	var starTableBodyElement = jQuery("#star_table_body");
+	for (var i = 0; i < Math.min(10, resultData.length); i++) {
+		var rowHTML = "";
+		rowHTML += "<tr>";
+		rowHTML += "<th>" + resultData[i]["star_name"] + "</th>";
+		rowHTML += "<th>" + resultData[i]["star_dob"] + "</th>";
+		rowHTML += "</tr>"
+		starTableBodyElement.append(rowHTML);
 	}
-	tableBodyHtml += "</tbody>";
-	
-	starTableElement.append(tableBodyHtml);
 }
 
+// makes the HTTP GET request and registers on success callback function handleStarResult
 jQuery.ajax({
 	  dataType: "json",
 	  method: "GET",
