@@ -34,7 +34,8 @@ public class Movie extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String loginUser = "test";
+        
+		String loginUser = "test";
         String loginPasswd = "test";
         String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 

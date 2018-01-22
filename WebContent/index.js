@@ -1,20 +1,36 @@
 
-jQuery("#header").html("Stars: ");
-
 
 function handleStarResult(resultData) {
-	for (var i = 0; i < 20; i++) {
-		jQuery("#star_table").append("<tr>")
-		jQuery("#star_table").append("<th>" + resultData[i]["star_id"] + "</th>");
-		jQuery("#star_table").append("<th>" + resultData[i]["star_name"] + "</th>");
-		jQuery("#star_table").append("<th>" + resultData[i]["star_dob"] + "</th>");
-		jQuery("#star_table").append("</tr>")
+	var starTableElement = jQuery("#star_table");
+	var tableHeaderHtml = 			
+		"<thead>" + 
+			"<tr>" +
+				"<th>Name</th>" +
+				"<th>Birth year</th>" +
+			"</tr>" +
+		"</thead>";
+	
+	starTableElement.append(tableHeaderHtml);
+	
+	var tableBodyHtml = "";
+	
+	tableBodyHtml += "<tbody>";
+	for (var i = 0; i < 10; i++) {
+		tableBodyHtml +=
+				"<tr>" +
+				  "<th>" + resultData[i]["star_name"] + "</th>" +
+				  "<th>" + resultData[i]["star_dob"] + "</th>" +
+				"</tr>"
 	}
+	tableBodyHtml += "</tbody>";
+	
+	starTableElement.append(tableBodyHtml);
 }
 
 jQuery.ajax({
 	  dataType: "json",
 	  method: "GET",
-	  url: "http://localhost:8080/project2-sample-1/stars",
+	  url: "/project2-api-example/stars",
 	  success: (resultData) => handleStarResult(resultData)
 });
+
