@@ -11,7 +11,7 @@ To run this example:
 
 `index.js` is the main Javascript file that initiates an HTTP GET request to the `Movie.java` servlet. After the response is returned, `index.js` populates the table using the data it gets.
 
-`index.html` is the main HTML file that imports jQuery, Bootstrap, and `index.js`. It also contains the intial tags for the table.
+`index.html` is the main HTML file that imports jQuery, Bootstrap, and `index.js`. It also contains the intial skeleton for the table.
 
 For project 2, you are required to separate frontend and backend. Backend Java Servlet only provides API in JSON format. Frontend Javascript code fetches the data through HTTP (ajax) requests and then display the data on the webpage.
 
