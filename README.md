@@ -3,7 +3,7 @@
 This example shows how frontend and backend are separated by implementing a star list page.
 
 To run this example: 
-1. clone this repository
+1. clone this repository using `git clone https://github.com/UCI-Chenli-teaching/project2-api-example.git`
 2. open Eclipse -> right click Project Explorer -> import -> import -> under "Maven" -> Existing Maven Projects. 
 3. For "Root Directory", click "Browse" and select this repository's folder. Click Finish
 
