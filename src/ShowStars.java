@@ -19,13 +19,13 @@ import com.google.gson.JsonObject;
  * Servlet implementation class Movie
  */
 @WebServlet("/stars")
-public class Movie extends HttpServlet {
+public class ShowStars extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Movie() {
+    public ShowStars() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,8 +35,8 @@ public class Movie extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-		String loginUser = "test";
-        String loginPasswd = "test";
+		String loginUser = "mytestuser";
+        String loginPasswd = "mypassword";
         String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
         response.setContentType("application/json"); // Response mime type

@@ -21,4 +21,3 @@ jQuery.ajax({
 	  url: "/project2-api-example/stars",
 	  success: (resultData) => handleStarResult(resultData)
 });
-
