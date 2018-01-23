@@ -6,10 +6,10 @@ To run this example:
 1. clone this repository using `git clone https://github.com/UCI-Chenli-teaching/project2-api-example.git`
 2. open Eclipse -> File -> import -> under "Maven" -> "Existing Maven Projects" -> Click "Finish".
 3. For "Root Directory", click "Browse" and select this repository's folder. Click "Finish".
-4. In "Java Resources" folder, open `Movie.java`. Change the mysql username and password and make sure you have the `moviedb` database.
+4. In "Java Resources" folder, open `ShowStars.java`. Change the mysql username and password and make sure you have the `moviedb` database.
 5. You can run this project on Tomcat now.
 
-`Movie.java` is a Java servlet that talks to the database and get the stars. It returns a list of stars in the JSON format. 
+`ShowStars.java` is a Java servlet that talks to the database and get the stars. It returns a list of stars in the JSON format. 
 
 `index.js` is the main Javascript file that initiates an HTTP GET request to the `Movie.java` servlet. After the response is returned, `index.js` populates the table using the data it gets.
 
