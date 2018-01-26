@@ -15,7 +15,14 @@ To run this example:
 
 `index.html` is the main HTML file that imports jQuery, Bootstrap, and `index.js`. It also contains the intial skeleton for the table.
 
-For project 2, you are recommended to separate frontend and backend. Backend Java Servlet only provides API in JSON format. Frontend Javascript code fetches the data through HTTP (ajax) requests and then display the data on the webpage. This approach is **not** required, you are free to use any technology/framework/tool you want. This approach is recommended because it's considered a better practice, compared to an outdated technology such as JSP.
+For project 2, you are recommended to separate frontend and backend. Backend Java Servlet only provides API in JSON format. Frontend Javascript code fetches the data through HTTP (ajax) requests and then display the data on the webpage. 
 
-For frontend, you are recommended to use jQuery for making HTTP requests and manipulate DOM. jQuery is relatively easy to learn compared to other frameworks. This example also includes Bootstrap, a popular UI framework to let you easily make your webpage look fancy. However, you are also free to use any frontend framework (Angular, React, etc...), UI framework (Semantic UI, Material Design, etc...), and backend framework (Spring, Play, etc...).
+This approach is **not** required, but we recommend it because it's considered a better practice, compared to an outdated technology such as JSP.
+
+
+For frontend, you are recommended to use jQuery for making HTTP requests and manipulate DOM. jQuery is relatively easy to learn compared to other frameworks. 
+
+This example also includes Bootstrap, a popular UI framework to let you easily make your webpage look fancy. 
+
+You are also free to use any frontend framework (Angular, React, etc...), UI framework (Semantic UI, Material Design, etc...), and backend framework (Spring, Play, etc...), pure Java Sevlet or JSP.
 
