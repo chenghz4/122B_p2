@@ -3,7 +3,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.servlet.ServletException;
@@ -78,16 +77,9 @@ public class ShowStars extends HttpServlet {
             rs.close();
             statement.close();
             dbcon.close();
-        } catch (SQLException ex) {
-            while (ex != null) {
-                System.out.println("SQL Exception:  " + ex.getMessage());
-                ex = ex.getNextException();
-            } // end while
-        } // end catch SQLException
-
-        catch (java.lang.Exception ex) {
+        } catch (Exception e) {
             out.println("<HTML>" + "<HEAD><TITLE>" + "MovieDB: Error" + "</TITLE></HEAD>\n<BODY>"
-                    + "<P>SQL error in doGet: " + ex.getMessage() + "</P></BODY></HTML>");
+                    + "<P>SQL error in doGet: " + e.getMessage() + "</P></BODY></HTML>");
             return;
         }
         out.close();
