@@ -23,4 +23,4 @@ This approach is **not** required, but we recommend it because it's considered a
 
 This example uses `jQuery` for making HTTP requests and manipulate DOM. jQuery is relatively easy to learn compared to other frameworks. This example also includes `Bootstrap`, a popular UI framework to let you easily make your webpage look fancy. 
 
-You are free to use any technology/tool/framework you want.
+You are free to use any technology/tool/framework you want. The backend language must be Java.
