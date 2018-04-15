@@ -7,7 +7,7 @@ function handleStarResult(resultData) {
 
 
     // populate the star table
-    var starTableBodyElement = jQuery("#star_table_body");
+    var movieTableBodyElement = jQuery("#movie_table_body");
     for (var i = 0; i < Math.min(10, resultData.length); i++) {
         var rowHTML = "";
         rowHTML += "<tr>";
@@ -15,7 +15,7 @@ function handleStarResult(resultData) {
         rowHTML += "<th>" + resultData[i]["movie_year"] + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_director"] + "</th>";
         rowHTML += "</tr>"
-        starTableBodyElement.append(rowHTML);
+        movieTableBodyElement.append(rowHTML);
     }
 }
 
