@@ -40,7 +40,6 @@ public class SingleStar extends HttpServlet {
 
         // Retrieve parameter id from url request.
         String id = request.getParameter("id");
-        System.out.println(id);
 
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();
