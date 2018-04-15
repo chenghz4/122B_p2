@@ -6,7 +6,7 @@ function handleStarResult(resultData) {
     for (var i = 0; i < Math.min(10, resultData.length); i++) {
         var rowHTML = "";
         rowHTML += "<tr>";
-        rowHTML += "<th>" + '<a href="/project2-api-example/aStar.html?id=' + resultData[i]['star_id'] + '">' + resultData[i]["star_name"] + '</a>' + "</th>";
+        rowHTML += "<th>" + '<a href="/project2-api-example/SingleStar.html?id=' + resultData[i]['star_id'] + '">' + resultData[i]["star_name"] + '</a>' + "</th>";
         rowHTML += "<th>" + resultData[i]["star_dob"] + "</th>";
         rowHTML += "</tr>"
         starTableBodyElement.append(rowHTML);

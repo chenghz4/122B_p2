@@ -14,15 +14,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
-// Declaring a WebServlet called AStarServlet, which maps to url "/aStar"
-@WebServlet(name = "AStarServlet", urlPatterns = "/aStar")
-public class AStar extends HttpServlet {
+// Declaring a WebServlet called SingleStarServlet, which maps to url "/SingleStar"
+@WebServlet(name = "SingleStarServlet", urlPatterns = "/SingleStar")
+public class SingleStar extends HttpServlet {
     private static final long serialVersionUID = 2L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AStar() {
+    public SingleStar() {
         super();
         // TODO Auto-generated constructor stub
     }

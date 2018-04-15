@@ -47,7 +47,7 @@ var starId = getParameterByName('id');
 jQuery.ajax({
     dataType: "json",
     method: "GET",
-    url: "/project2-api-example/aStar?id=" + starId,
+    url: "/project2-api-example/SingleStar?id=" + starId,
     success: (resultData) => handleStarResult(resultData)
 })
 ;
