@@ -1,3 +1,11 @@
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -5,36 +13,26 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+// Declaring a WebServlet called StarsServlet, which maps to url "/stars"
+@WebServlet(name = "StarsServlet", urlPatterns = "/stars")
+public class Stars extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-/**
- * Servlet implementation class Movie
- */
-@WebServlet("/stars")
-public class ShowStars extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowStars() {
+    public Stars() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-		String loginUser = "mytestuser";
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String loginUser = "mytestuser";
         String loginPasswd = "mypassword";
         String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
@@ -55,23 +53,24 @@ public class ShowStars extends HttpServlet {
 
             // Perform the query
             ResultSet rs = statement.executeQuery(query);
-            
+
             JsonArray jsonArray = new JsonArray();
-            
+
             // Iterate through each row of rs
             while (rs.next()) {
                 String star_id = rs.getString("id");
                 String star_name = rs.getString("name");
                 String star_dob = rs.getString("birthYear");
-                
+
+                // Create a JsonObject based on the data we retrieve from rs
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("star_id", star_id);
                 jsonObject.addProperty("star_name", star_name);
                 jsonObject.addProperty("star_dob", star_dob);
-                
+
                 jsonArray.add(jsonObject);
             }
-            
+
             out.write(jsonArray.toString());
 
             rs.close();
@@ -83,15 +82,15 @@ public class ShowStars extends HttpServlet {
             return;
         }
         out.close();
-        
-	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        doGet(request, response);
+    }
 
 }
