@@ -29,7 +29,7 @@ function handleStarResult(resultData) {
         rowHTML +=
             "<th>" +
             // Add a link to single-star.html with id passed with GET url parameter
-            '<a href="/project2-api-example/single-star.html?id=' + resultData[i]['star_id'] + '">'
+            '<a href="single-star.html?id=' + resultData[i]['star_id'] + '">'
             + resultData[i]["star_name"] +     // display star_name for the link text
             '</a>' +
             "</th>";
@@ -50,6 +50,6 @@ function handleStarResult(resultData) {
 jQuery.ajax({
     dataType: "json", // Setting return data type
     method: "GET", // Setting request method
-    url: "/project2-api-example/stars", // Setting request url, which is mapped by StarsServlet in Stars.java
+    url: "api/stars", // Setting request url, which is mapped by StarsServlet in Stars.java
     success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
 });
