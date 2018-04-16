@@ -1,3 +1,9 @@
+<!-- This example is following frontend and backend separation.
+
+    This .html performs two steps:
+    1. Create a html template skeleton, with all the elements defined (some left empty) and named with ids.
+    2. Load index.js to populate the data into empty elements.
+    -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,17 +19,23 @@
     <title>Star List</title>
 </head>
 <body>
+
+
 <h1>stars</h1>
 
+<!-- id "star_table" is useful for jQuery to find the html element with id, class here is mapping to Bootstrap defined class CSS -->
 <table id=star_table class="table table-striped">
+    <!-- create a table header -->
     <thead>
     <tr>
+        <!-- titles of each column-->
         <th>Name</th>
         <th>Birth Year</th>
     </tr>
     </thead>
-    <tbody id=star_table_body>
-    </tbody>
+    <!-- table body is left empty here, will be populated with the data retrieved with index.js -->
+    <!-- again, id "star_table_body" is useful for jQuery to find this html element -->
+    <tbody id=star_table_body></tbody>
 </table>
 
 <!-- include jQuery and Bootstrap JS -->
@@ -32,6 +44,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <!-- include our own JS file -->
+<!-- the path is relative to index.html, since these two files are in the same directory -->
 <script src="./index.js"></script>
 </body>
 
