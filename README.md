@@ -11,7 +11,7 @@ This example shows how frontend and backend are separated by implementing a star
 
 ### Brief Explanation
 `Stars.java` is a Java servlet that talks to the database and get the stars. It returns a list of stars in the JSON format. 
-The name of star is generated as a link to SingleStar page.
+The name of star is generated as a link to Single Star page.
 
 `index.js` is the main Javascript file that initiates an HTTP GET request to the `Stars.java` servlet. After the response is returned, `index.js` populates the table using the data it gets.
 
@@ -19,9 +19,9 @@ The name of star is generated as a link to SingleStar page.
 
 `SingleStar.java` is a Java servlet that talks to the database and get information about one Star and all the movie this Star performed. It returns a list of Movies in the JSON format. 
 
-`SingleStar.js` is the Javascript file that initiates an HTTP GET request to the `SingleStar.java` servlet. After the response is returned, `SingleStar.js` populates the table using the data it gets.
+`single-star.js` is the Javascript file that initiates an HTTP GET request to the `SingleStar.java` servlet. After the response is returned, `single-star.js` populates the table using the data it gets.
 
-`SingleStar.html` is the HTML file that imports jQuery, Bootstrap, and `SingleStar.js`. It also contains the initial skeleton for the movies table.
+`single-star.html` is the HTML file that imports jQuery, Bootstrap, and `single-star.js`. It also contains the initial skeleton for the movies table.
 
 ### Separating frontend and backend
 For project 2, you are recommended to separate frontend and backend. Backend Java Servlet only provides API in JSON format. Frontend Javascript code fetches the data through HTTP (ajax) requests and then display the data on the webpage. 
