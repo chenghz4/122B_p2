@@ -1,15 +1,16 @@
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -18,23 +19,16 @@ import java.sql.ResultSet;
 @WebServlet(name = "SingleStarServlet", urlPatterns = "/SingleStar")
 public class SingleStar extends HttpServlet {
     private static final long serialVersionUID = 2L;
+    
+    // Create a dataSource which registered in web.xml
+    @Resource(name = "jdbc/moviedb")
+    private DataSource dataSource;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SingleStar() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String loginUser = "mytestuser";
-        String loginPasswd = "mypassword";
-        String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
         response.setContentType("application/json"); // Response mime type
 
@@ -45,11 +39,8 @@ public class SingleStar extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
-            // Class.forName("org.gjt.mm.mysql.Driver");
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-            Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
-
+            // Get a connection from dataSource
+            Connection dbcon = dataSource.getConnection();
 
             // Construct a query with parameter represented by "?"
             String query = "SELECT * from stars as s, stars_in_movies as sim, movies as m where m.id = sim.movieId and sim.starId = s.id and s.id = ?";
