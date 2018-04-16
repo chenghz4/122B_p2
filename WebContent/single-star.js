@@ -36,7 +36,6 @@ function getParameterByName(target) {
  * @param resultData jsonObject
  */
 
-//
 function handleResult(resultData) {
 
     console.log("handleResult: populating star info from resultData");
@@ -51,11 +50,11 @@ function handleResult(resultData) {
 
     console.log("handleResult: populating movie table from resultData");
 
-    // populate the star table
-    // find the empty table body by id "movie_table_body"
+    // Populate the star table
+    // Find the empty table body by id "movie_table_body"
     let movieTableBodyElement = jQuery("#movie_table_body");
 
-    // concatenate the html tags with resultData jsonObject to create table rows
+    // Concatenate the html tags with resultData jsonObject to create table rows
     for (let i = 0; i < Math.min(10, resultData.length); i++) {
         let rowHTML = "";
         rowHTML += "<tr>";
@@ -64,21 +63,22 @@ function handleResult(resultData) {
         rowHTML += "<th>" + resultData[i]["movie_director"] + "</th>";
         rowHTML += "</tr>";
 
-        // append the row created to the table body, which will refresh the page
+        // Append the row created to the table body, which will refresh the page
         movieTableBodyElement.append(rowHTML);
     }
 }
 
-
-// Once this .js is loaded, following scripts will be executed by the browser
+/**
+ * Once this .js is loaded, following scripts will be executed by the browser\
+ */
 
 // Get id from URL
 let starId = getParameterByName('id');
 
-// makes the HTTP GET request and registers on success callback function handleResult
+// Makes the HTTP GET request and registers on success callback function handleResult
 jQuery.ajax({
-    dataType: "json",  // setting return data type
-    method: "GET",// setting request method
-    url: "/project2-api-example/SingleStar?id=" + starId, // setting request url, which is mapped by StarsServlet in Stars.java
-    success: (resultData) => handleResult(resultData) // setting callback function to handle data returned successfully by the SingleStarServlet
+    dataType: "json",  // Setting return data type
+    method: "GET",// Setting request method
+    url: "/project2-api-example/SingleStar?id=" + starId, // Setting request url, which is mapped by StarsServlet in Stars.java
+    success: (resultData) => handleResult(resultData) // Setting callback function to handle data returned successfully by the SingleStarServlet
 });
