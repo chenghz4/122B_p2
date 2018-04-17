@@ -62,16 +62,25 @@ public class StarsServlet extends HttpServlet {
 
                 jsonArray.add(jsonObject);
             }
-
+            
+            // write JSON string to output
             out.write(jsonArray.toString());
+            // set response status to 200 (OK)
+            response.setStatus(200);
 
             rs.close();
             statement.close();
             dbcon.close();
         } catch (Exception e) {
-            out.println("<HTML>" + "<HEAD><TITLE>" + "MovieDB: Error" + "</TITLE></HEAD>\n<BODY>"
-                    + "<P>SQL error in doGet: " + e.getMessage() + "</P></BODY></HTML>");
-            return;
+        	
+			// write error message JSON object to output
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.addProperty("errorMessage", e.getMessage());
+			out.write(jsonObject.toString());
+
+			// set reponse status to 500 (Internal Server Error)
+			response.setStatus(500);
+
         }
         out.close();
 
