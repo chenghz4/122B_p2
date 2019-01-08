@@ -1,9 +1,9 @@
-## CS 122B Project 2 API example
+## CS 122B Project 1 API example
 
 This example shows how frontend and backend are separated by implementing a star list page and a single star page with movie list.
 
 ### To run this example: 
-1. clone this repository using `git clone https://github.com/UCI-Chenli-teaching/project2-api-example.git`
+1. clone this repository using `git clone https://github.com/UCI-Chenli-teaching/project1-api-example.git`
 2. open Eclipse -> File -> import -> under "Maven" -> "Existing Maven Projects" -> Click "Finish".
 3. For "Root Directory", click "Browse" and select this repository's folder. Click "Finish".
 4. In `WebContent/META-INF/context.xml`, make sure the mysql username is `mytestuser` and password is `mypassword`.
@@ -25,9 +25,9 @@ The name of star is generated as a link to Single Star page.
 `single-star.html` is the HTML file that imports jQuery, Bootstrap, and `single-star.js`. It also contains the initial skeleton for the movies table.
 
 ### Separating frontend and backend
-For project 2, you are recommended to separate frontend and backend. Backend Java Servlet only provides API in JSON format. Frontend Javascript code fetches the data through HTTP (ajax) requests and then display the data on the webpage. 
+For project 1, you are recommended to separate frontend and backend. Backend Java Servlet only provides API in JSON format. Frontend Javascript code fetches the data through HTTP (ajax) requests and then display the data on the webpage. 
 
-This approach is **not** required, but we recommend it because it's considered a better practice compared to `JSP`, a very outdated technology.
+This approach is **not** required, but we recommend it because it's considered a better practice compared to `JSP`, a very outdated technology. You will receive 3% extra credit (for project 1) + 5% (for project 2) if you choose to implement frontend and backend separation. See course wiki for more details.
 
 This example uses `jQuery` for making HTTP requests and manipulate DOM. jQuery is relatively easy to learn compared to other frameworks. This example also includes `Bootstrap`, a popular UI framework to let you easily make your webpage look fancy. 
 
@@ -35,7 +35,7 @@ You are free to use any technology/tool/framework you want. The backend language
 
 
 ### DataSource
-For project 2, you are recommended to use tomcat to manage your DataSource instead of manually define MySQL connection in each of the servlet.
+For project 1, you are recommended to use tomcat to manage your DataSource instead of manually define MySQL connection in each of the servlet.
 
 `WebContent/META-INF/context.xml` contains a DataSource, with database information stored in it.
 `WEB-INF/web.xml` registers the DataSource to name jdbc/moviedb, which could be referred to anywhere in the project.
