@@ -43,7 +43,9 @@ public class SingleStarServlet extends HttpServlet {
 			Connection dbcon = dataSource.getConnection();
 
 			// Construct a query with parameter represented by "?"
-			String query = "SELECT * from stars as s, stars_in_movies as sim, movies as m where m.id = sim.movieId and sim.starId = s.id and s.id = ?";
+			String query = "SELECT  s.name, s.birthYear, starId, movieId, title, year, director " +
+							"from stars as s, stars_in_movies as sim, movies as m  " +
+							"where sim.starId = s.id and m.id=sim.movieId and m.id=?";
 
 			// Declare our statement
 			PreparedStatement statement = dbcon.prepareStatement(query);
@@ -63,11 +65,9 @@ public class SingleStarServlet extends HttpServlet {
 				String starId = rs.getString("starId");
 				String starName = rs.getString("name");
 				String starDob = rs.getString("birthYear");
-
 				String movieId = rs.getString("movieId");
-				String movieTitle = rs.getString("title");
-				String movieYear = rs.getString("year");
-				String movieDirector = rs.getString("director");
+				String movietitle = rs.getString("title");
+
 
 				// Create a JsonObject based on the data we retrieve from rs
 
@@ -76,17 +76,14 @@ public class SingleStarServlet extends HttpServlet {
 				jsonObject.addProperty("star_name", starName);
 				jsonObject.addProperty("star_dob", starDob);
 				jsonObject.addProperty("movie_id", movieId);
-				jsonObject.addProperty("movie_title", movieTitle);
-				jsonObject.addProperty("movie_year", movieYear);
-				jsonObject.addProperty("movie_director", movieDirector);
-
+				jsonObject.addProperty("movie_title", movietitle);
 				jsonArray.add(jsonObject);
 			}
-			
-            // write JSON string to output
-            out.write(jsonArray.toString());
-            // set response status to 200 (OK)
-            response.setStatus(200);
+
+			// write JSON string to output
+			out.write(jsonArray.toString());
+			// set response status to 200 (OK)
+			response.setStatus(200);
 
 			rs.close();
 			statement.close();

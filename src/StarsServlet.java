@@ -41,7 +41,9 @@ public class StarsServlet extends HttpServlet {
             // Declare our statement
             Statement statement = dbcon.createStatement();
 
-            String query = "SELECT * from stars";
+            String query =
+                    "select distinct m.id, m.title, m.director, m.year, r.rating "+"from movies as m, ratings as r "+
+                    "where m.id=r.movieId "+"order by r.rating desc "+"limit 20";
 
             // Perform the query
             ResultSet rs = statement.executeQuery(query);
@@ -50,15 +52,20 @@ public class StarsServlet extends HttpServlet {
 
             // Iterate through each row of rs
             while (rs.next()) {
-                String star_id = rs.getString("id");
-                String star_name = rs.getString("name");
-                String star_dob = rs.getString("birthYear");
-
+                String movie_id = rs.getString("id");
+                String movie_title = rs.getString("title");
+                String movie_year = rs.getString("year");
+                String movie_director = rs.getString("director");
+                String rate = rs.getString("rating");
                 // Create a JsonObject based on the data we retrieve from rs
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("star_id", star_id);
-                jsonObject.addProperty("star_name", star_name);
-                jsonObject.addProperty("star_dob", star_dob);
+                jsonObject.addProperty("movie_id", movie_id);
+                jsonObject.addProperty("movie_title", movie_title);
+                jsonObject.addProperty("movie_year", movie_year);
+                jsonObject.addProperty("movie_director", movie_director);
+                jsonObject.addProperty("list_g", "list of genres");
+                jsonObject.addProperty("list_s", "list of stars");
+                jsonObject.addProperty("rating",rate);
 
                 jsonArray.add(jsonObject);
             }
