@@ -45,7 +45,7 @@ function handleResult(resultData) {
     let starInfoElement = jQuery("#star_info");
 
     // append two html <p> created to the h3 body, which will refresh the page
-    starInfoElement.append("<p>Movie Name: " + resultData[0]["movie_title"] + "</p>");
+    starInfoElement.append("<p>Star name: " + resultData[0]["star_name"] + "</p>");
 
     console.log("handleResult: populating movie table from resultData");
 
@@ -57,11 +57,14 @@ function handleResult(resultData) {
     for (let i = 0; i < Math.min(20, resultData.length); i++) {
         let rowHTML = "";
         rowHTML += "<tr>";
+
+        rowHTML += "<th>" + resultData[i]["star_name"] + "</th>";
+        rowHTML += "<th>" + resultData[i]["star_dob"] + "</th>";
         rowHTML +=
             "<th>" +
             // Add a link to single-star.html with id passed with GET url parameter
-            '<a href="single-star.html?id=' + resultData[i]['star_id'] + '">'
-            + resultData[i]["star_name"] +     // display star_name for the link text
+            '<a href="single-star.html?id=' + resultData[i]['movie_id'] + '">'
+            + resultData[i]["movie_title"] +     // display star_name for the link text
             '</a>' +
             "</th>";
         rowHTML += "</tr>";
@@ -72,19 +75,6 @@ function handleResult(resultData) {
 
 
 
-    let goback="";
-    goback += "<tr>";
-    goback +=
-        "<th>" +
-        // Add a link to single-star.html with id passed with GET url parameter
-        '<a href="index.html">'
-        "goback" +     // display star_name for the link text
-        '</a>' +
-        "</th>";
-    goback += "</tr>";
-
-    // Append the row created to the table body, which will refresh the page
-    movieTableBodyElement.append(goback);
 
 }
 

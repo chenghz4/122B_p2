@@ -45,7 +45,7 @@ public class SingleStarServlet extends HttpServlet {
 			// Construct a query with parameter represented by "?"
 			String query = "SELECT  s.name, s.birthYear, starId, movieId, title, year, director " +
 							"from stars as s, stars_in_movies as sim, movies as m  " +
-							"where sim.starId = s.id and m.id=sim.movieId and m.id=?";
+							"where sim.starId = s.id and m.id=sim.movieId and s.id=?";
 
 			// Declare our statement
 			PreparedStatement statement = dbcon.prepareStatement(query);
