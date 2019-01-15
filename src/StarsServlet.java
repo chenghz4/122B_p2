@@ -42,9 +42,16 @@ public class StarsServlet extends HttpServlet {
             Statement statement = dbcon.createStatement();
 
             String query =
-                    "select distinct m.id, m.title, m.director, m.year, r.rating "+"from movies as m, ratings as r "+
-                    "where m.id=r.movieId "+"order by r.rating desc "+"limit 20";
-
+                    "select distinct a.id, a.title, a.year, a.director, a.genre_name, a.rating, s.name as star_name," +
+                            " s.id as star_id " +
+                            "from " +
+                            "(select distinct m.id, m.title, m.year, m.director,g.name as genre_name, r.rating " +
+                            "from movies as m, ratings as r, genres as g, genres_in_movies as y " +
+                            "where m.id=y.movieId and y.genreId=g.id and r.movieId=m.id  " +
+                            "order by r.rating desc " +
+                            "limit 20) as a, " +
+                            "stars as s, stars_in_movies as x " +
+                            "where a.id=x.movieId and x.starId=s.id ";
             // Perform the query
             ResultSet rs = statement.executeQuery(query);
 
@@ -57,14 +64,18 @@ public class StarsServlet extends HttpServlet {
                 String movie_year = rs.getString("year");
                 String movie_director = rs.getString("director");
                 String rate = rs.getString("rating");
+                String star_id = rs.getString("star_id");
+                String star_name = rs.getString("star_name");
+                String genre_name = rs.getString("genre_name");
                 // Create a JsonObject based on the data we retrieve from rs
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("movie_id", movie_id);
                 jsonObject.addProperty("movie_title", movie_title);
                 jsonObject.addProperty("movie_year", movie_year);
                 jsonObject.addProperty("movie_director", movie_director);
-                jsonObject.addProperty("list_g", "list of genres");
-                jsonObject.addProperty("list_s", "list of stars");
+                jsonObject.addProperty("list_g", genre_name);
+                jsonObject.addProperty("list_s", star_name);
+                jsonObject.addProperty("s_id",star_id);
                 jsonObject.addProperty("rating",rate);
 
                 jsonArray.add(jsonObject);

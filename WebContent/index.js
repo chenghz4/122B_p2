@@ -41,12 +41,7 @@ function handleStarResult(resultData) {
 
 
         rowHTML +=
-            "<th>" +
-            // Add a link to single-star.html with id passed with GET url parameter
-            '<a href="list_genres.html.html?id=' + resultData[i]['movie_id'] + '">'
-            + resultData[i]["list_g"] +     // display star_name for the link text
-            '</a>' +
-            "</th>";
+            "<th>" + resultData[i]["list_g"] +     "</th>";
 
         rowHTML +=
             "<th>" +

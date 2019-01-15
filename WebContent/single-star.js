@@ -57,14 +57,35 @@ function handleResult(resultData) {
     for (let i = 0; i < Math.min(20, resultData.length); i++) {
         let rowHTML = "";
         rowHTML += "<tr>";
-
-        rowHTML += "<th>" + resultData[i]["star_name"] + "</th>";
-        rowHTML += "<th>" + resultData[i]["star_dob"] + "</th>";
+        rowHTML +=
+            "<th>" +
+            // Add a link to single-star.html with id passed with GET url parameter
+            '<a href="single-star.html?id=' + resultData[i]['star_id'] + '">'
+            + resultData[i]["star_name"] +     // display star_name for the link text
+            '</a>' +
+            "</th>";
         rowHTML += "</tr>";
 
-        // Append the row created to the table body, which will refresh the page
-        movieTableBodyElement.append(rowHTML);
-    }
+            // Append the row created to the table body, which will refresh the page
+            movieTableBodyElement.append(rowHTML);
+        }
+
+
+
+    let goback="";
+    goback += "<tr>";
+    goback +=
+        "<th>" +
+        // Add a link to single-star.html with id passed with GET url parameter
+        '<a href="index.html">'
+        "goback" +     // display star_name for the link text
+        '</a>' +
+        "</th>";
+    goback += "</tr>";
+
+    // Append the row created to the table body, which will refresh the page
+    movieTableBodyElement.append(goback);
+
 }
 
 /**
