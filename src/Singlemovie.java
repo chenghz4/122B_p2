@@ -53,7 +53,7 @@ public class Singlemovie extends HttpServlet {
                             "order by r.rating desc " +
                             "limit 20) as a, " +
                             "stars as s, stars_in_movies as x " +
-                            "where a.id=x.movieId and x.starId=s.id and where x.movieId=?";
+                            "where a.id=x.movieId and x.starId=s.id and x.movieId=?";
 
             // Declare our statement
             PreparedStatement statement = dbcon.prepareStatement(query);

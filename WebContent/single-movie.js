@@ -63,8 +63,6 @@ function handleResult(resultData) {
         rowHTML += "<th>" + resultData[i]["movie_year"] + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_director"] + "</th>";
         rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
-
-
         rowHTML +=
             "<th>" + resultData[i]["list_g"] +     "</th>";
 
@@ -80,10 +78,22 @@ function handleResult(resultData) {
         rowHTML += "</tr>";
 
         // Append the row created to the table body, which will refresh the page
-        starTableBodyElement.append(rowHTML);
+        movieTableBodyElement.append(rowHTML);
     }
 
+    let goback = "";
+    goback += "<tr>";
+    goback +=
+        "<th>" +
+        // Add a link to single-star.html with id passed with GET url parameter
+        '<a href="index.html" >'
+        + "Go Back to Movie List" +     // display star_name for the link text
+        '</a>' +
+        "</th>";
+    goback += "</tr>";
 
+    // Append the row created to the table body, which will refresh the page
+    movieTableBodyElement.append(goback);
 
 
 
