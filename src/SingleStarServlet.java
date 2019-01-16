@@ -43,9 +43,11 @@ public class SingleStarServlet extends HttpServlet {
 			Connection dbcon = dataSource.getConnection();
 
 			// Construct a query with parameter represented by "?"
-			String query = "SELECT  s.name, s.birthYear, starId, movieId, title, year, director " +
-							"from stars as s, stars_in_movies as sim, movies as m  " +
-							"where sim.starId = s.id and m.id=sim.movieId and s.id=?";
+			String query = "SELECT  s.name, s.birthYear, starId, GROUP_CONCAT(distinct movieId) as movieId, " +
+					"GROUP_CONCAT(distinct title) as title " +
+					"from stars as s, stars_in_movies as sim, movies as m  " +
+					"where sim.starId = s.id and m.id=sim.movieId and s.id=? " +
+					"group by s.id";
 
 			// Declare our statement
 			PreparedStatement statement = dbcon.prepareStatement(query);

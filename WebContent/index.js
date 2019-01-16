@@ -20,13 +20,15 @@ function handleStarResult(resultData) {
     // Find the empty table body by id "star_table_body"
     let starTableBodyElement = jQuery("#star_table_body");
 
-    // Iterate through resultData, no more than 10 entries
-    for (let i = 0; i < Math.min(100, resultData.length); i++) {
 
-        // Concatenate the html tags with resultData jsonObject
+
+
+
+    for (let i = 0; i <resultData.length; i++) {
+
         let rowHTML = "";
         rowHTML += "<tr>";
-
+        rowHTML += "<th>" + (i+1) + "</th>";
         rowHTML +=
             "<th>" +
             // Add a link to single-star.html with id passed with GET url parameter
@@ -38,24 +40,44 @@ function handleStarResult(resultData) {
         rowHTML += "<th>" + resultData[i]["movie_year"] + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_director"] + "</th>";
 
+       // for(let j=0; j < resultData[i]["list_g"].length;j++)
+        rowHTML += "<th>" + resultData[i]["list_g"] + "</th>";
 
 
-        rowHTML +=
-            "<th>" + resultData[i]["list_g"] +     "</th>";
+        rowHTML +="<th>";
+        for (let j = 0; j < resultData[i]["s.id"].split(",").length; j++) {
+            if (j == (resultData[i]["s.id"].split(",").length) - 1) {
+                rowHTML +=
 
-        rowHTML +=
-            "<th>" +
-            // Add a link to single-star.html with id passed with GET url parameter
-            '<a href="single-star.html?id=' + resultData[i]['s.id'] + '">'
-            + resultData[i]["list_s"] +     // display star_name for the link text
-            '</a>' +
-            "</th>";
+                    // Add a link to single-star.html with id passed with GET url parameter
+                    '<a href="single-star.html?id=' + resultData[i]["s.id"].split(",")[j] + '">'
+                    + resultData[i]["list_s"].split(",")[j] + ""     // display star_name for the link text
+                '</a>';
+            }
+
+
+            else{
+                rowHTML +=
+
+                    // Add a link to single-star.html with id passed with GET url parameter
+                    '<a href="single-star.html?id=' + resultData[i]["s.id"].split(",")[j] + '">'
+                    + resultData[i]["list_s"].split(",")[j] + ", "     // display star_name for the link text
+                '</a>';
+
+
+
+            }
+        }
+        rowHTML +="</th>";
+
 
         rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
         rowHTML += "</tr>";
 
         // Append the row created to the table body, which will refresh the page
         starTableBodyElement.append(rowHTML);
+
+
     }
 }
 

@@ -58,7 +58,7 @@ function handleResult(resultData) {
         let rowHTML = "";
         rowHTML += "<tr>";
 
-
+        rowHTML += "<th>" + (i+1) + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_title"] + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_year"] + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_director"] + "</th>";
@@ -66,13 +66,26 @@ function handleResult(resultData) {
         rowHTML +=
             "<th>" + resultData[i]["list_g"] +     "</th>";
 
-        rowHTML +=
-            "<th>" +
-            // Add a link to single-star.html with id passed with GET url parameter
-            '<a href="single-star.html?id=' + resultData[i]['s.id'] + '">'
-            + resultData[i]["list_s"] +     // display star_name for the link text
-            '</a>' +
-            "</th>";
+        rowHTML +="<th>";
+        for (let j = 0; j < resultData[i]["s.id"].split(",").length; j++) {
+            if(j==(resultData[i]["s.id"].split(",").length)-1) {
+                rowHTML +=
+
+                    // Add a link to single-star.html with id passed with GET url parameter
+                    '<a href="single-star.html?id=' + resultData[i]["s.id"].split(",")[j] + '">'
+                    + resultData[i]["list_s"].split(",")[j] + ""     // display star_name for the link text
+                '</a>';
+            }
+            else {
+                rowHTML +=
+
+                    // Add a link to single-star.html with id passed with GET url parameter
+                    '<a href="single-star.html?id=' + resultData[i]["s.id"].split(",")[j] + '">'
+                    + resultData[i]["list_s"].split(",")[j] + ", "     // display star_name for the link text
+                '</a>';
+            }
+        }
+        rowHTML +="</th>";
 
 
         rowHTML += "</tr>";
@@ -83,6 +96,9 @@ function handleResult(resultData) {
 
     let goback = "";
     goback += "<tr>";
+    goback += "<tr>";
+    goback += "<tr>";
+    goback += "<tr>";
     goback +=
         "<th>" +
         // Add a link to single-star.html with id passed with GET url parameter
@@ -91,6 +107,11 @@ function handleResult(resultData) {
         '</a>' +
         "</th>";
     goback += "</tr>";
+    goback += "</tr>";
+    goback += "</tr>";
+    goback += "</tr>";
+
+
 
     // Append the row created to the table body, which will refresh the page
     movieTableBodyElement.append(goback);
