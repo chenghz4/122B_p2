@@ -45,7 +45,8 @@ public class StarsServlet extends HttpServlet {
             String query =
                     "select distinct a.id, a.title, a.year, a.director, " +
                             "GROUP_CONCAT(distinct a.genre_name) as genre_name, a.rating,  " +
-                            "GROUP_CONCAT(distinct s.name) as star_name,  GROUP_CONCAT(distinct s.id) as star_id " +
+                            "GROUP_CONCAT(distinct s.name order by s.id) as star_name, " +
+                            " GROUP_CONCAT(distinct s.id) as star_id " +
                             "from " +
                             "(select distinct m.id, m.title, m.year, m.director, " +
                             " GROUP_CONCAT(distinct g.name) as genre_name, r.rating " +

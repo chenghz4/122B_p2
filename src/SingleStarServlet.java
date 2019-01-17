@@ -44,7 +44,7 @@ public class SingleStarServlet extends HttpServlet {
 
 			// Construct a query with parameter represented by "?"
 			String query = "SELECT  s.name, s.birthYear, starId, GROUP_CONCAT(distinct movieId) as movieId, " +
-					"GROUP_CONCAT(distinct title) as title " +
+					"GROUP_CONCAT(distinct title order by movieId) as title " +
 					"from stars as s, stars_in_movies as sim, movies as m  " +
 					"where sim.starId = s.id and m.id=sim.movieId and s.id=? " +
 					"group by s.id";
