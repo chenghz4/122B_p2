@@ -94,27 +94,40 @@ function handleResult(resultData) {
         movieTableBodyElement.append(rowHTML);
     }
 
+    let space="";
+    space +="<tr>";
+    space +="<th>";
+    space +="</th>";
+    space +="</tr>";
+    movieTableBodyElement.append(space);
     let goback = "";
-    goback += "<tr>";
-    goback += "<tr>";
-    goback += "<tr>";
-    goback += "<tr>";
+
+
+    goback +="<tr>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
     goback +=
-        "<th>" +
+        "<th style='color: crimson'>" +
         // Add a link to single-star.html with id passed with GET url parameter
         '<a href="index.html" >'
         + "Go Back to Movie List" +     // display star_name for the link text
         '</a>' +
         "</th>";
     goback += "</tr>";
-    goback += "</tr>";
-    goback += "</tr>";
-    goback += "</tr>";
-
-
 
     // Append the row created to the table body, which will refresh the page
     movieTableBodyElement.append(goback);
+
 
 
 
