@@ -4,7 +4,23 @@
     1. Create a html template skeleton, with all the elements defined (some left empty) and named with ids.
     2. Load index.js to populate the data into empty elements.
     -->
+<style>
+h1 {
+	text-align: center;	
+	box-shadow: 0 10px 30px rgba(0,0,0,0.19), 0 10px 6px rgba(0,0,0,0.23);
+	background-color: lightgray;
+	padding: 10px;
+	font-weight: 100px;
+	font-size: 16px;
+		
+}
 
+	tr:nth-child(even) {
+  background-color: #d2e266
+}
+}
+	
+</style>
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,7 +38,7 @@
 <body>
 
 
-<h1 style="text-align: center;" >       Top Rated 20 Movie List    </h1>
+<h1>       Top Rated 20 Movie List    </h1>
 
 <!-- Id "star_table" is useful for jQuery to find the html element with id, class here is mapping to Bootstrap defined class CSS -->
 <table style="margin-top: 40px" id=star_table class="table table-striped">
