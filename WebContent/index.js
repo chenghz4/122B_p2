@@ -43,31 +43,22 @@ function handleStarResult(resultData) {
        // for(let j=0; j < resultData[i]["list_g"].length;j++)
         rowHTML += "<th>" + resultData[i]["list_g"] + "</th>";
 
-
+        let n=resultData[i]["s.id"].split(",").length;
         rowHTML +="<th>";
-        for (let j = 0; j < resultData[i]["s.id"].split(",").length; j++) {
-            if (j == (resultData[i]["s.id"].split(",").length) - 1) {
-                rowHTML +=
+        for (let j = 0; j < n-1; j++) {
 
-                    // Add a link to single-star.html with id passed with GET url parameter
-                    '<a href="single-star.html?id=' + resultData[i]["s.id"].split(",")[j] + '">'
-                    + resultData[i]["list_s"].split(",")[j] + ""     // display star_name for the link text
-                '</a>';
-            }
-
-
-            else{
-                rowHTML +=
-
-                    // Add a link to single-star.html with id passed with GET url parameter
+            rowHTML += // Add a link to single-star.html with id passed with GET url parameter
                     '<a href="single-star.html?id=' + resultData[i]["s.id"].split(",")[j] + '">'
                     + resultData[i]["list_s"].split(",")[j] + ", "     // display star_name for the link text
                 '</a>';
 
-
-
-            }
         }
+
+        rowHTML += // Add a link to single-star.html with id passed with GET url parameter
+            '<a href="single-star.html?id=' + resultData[i]["s.id"].split(",")[n-1] + '">'
+            + resultData[i]["list_s"].split(",")[n-1] + ""     // display star_name for the link text
+        '</a>';
+
         rowHTML +="</th>";
 
 

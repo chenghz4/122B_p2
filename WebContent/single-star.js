@@ -54,25 +54,16 @@ function handleResult(resultData) {
     let movieTableBodyElement = jQuery("#movie_table_body");
 
     // Concatenate the html tags with resultData jsonObject to create table rows
-    for (let i = 0; i < Math.min(100, resultData.length); i++) {
+    for (let i = 0; i <  resultData.length; i++) {
         let rowHTML = "";
+        let n=resultData[i]["movie_id"].split(",").length;
         rowHTML += "<tr>";
         rowHTML += "<th>" + (i+1) + "</th>";
         rowHTML += "<th>" + resultData[i]["star_name"] + "</th>";
         rowHTML += "<th>" + resultData[i]["star_dob"] + "</th>";
         rowHTML +="<th>";
-        for (let j = 0; j < resultData[i]["movie_id"].split(",").length; j++) {
+        for (let j = 0; j <n-1 ; j++) {
 
-
-            if(j==(resultData[i]["movie_id"].split(",").length)-1) {
-                rowHTML +=
-
-                    // Add a link to single-star.html with id passed with GET url parameter
-                    '<a href="single-movie.html?id=' + resultData[i]["movie_id"].split(",")[j] + '">'
-                    + resultData[i]["movie_title"].split(",")[j] + ""     // display star_name for the link text
-                '</a>';
-            }
-            else {
                 rowHTML +=
 
                     // Add a link to single-star.html with id passed with GET url parameter
@@ -81,10 +72,13 @@ function handleResult(resultData) {
                 '</a>';
 
 
-            }
         }
-        rowHTML +="</th>";
+        rowHTML += // Add a link to single-star.html with id passed with GET url parameter
+            '<a href="single-movie.html?id=' + resultData[i]["movie_id"].split(",")[n-1] + '">'
+            + resultData[i]["movie_title"].split(",")[n-1] + ""     // display star_name for the link text
+        '</a>';
 
+        rowHTML +="</th>";
         rowHTML += "</tr>";
 
             // Append the row created to the table body, which will refresh the page
