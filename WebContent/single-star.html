@@ -14,7 +14,13 @@ p {
 body{
 	
 }
- 
+
+tr:nth-child(odd) {
+  background-color: #fbc561;
+}
+#heading{
+font-size: 24px;
+} 
 </style>
 <!doctype html>
 <html lang="en">
@@ -39,10 +45,10 @@ body{
 <table id=movie_table class="table table-striped" style="margin-top: 50px">
     <thead>
     <tr>
-        <th style="color: crimson">#</th>
-        <th style="color: crimson">Star Name</th>
-        <th style="color: crimson">Birthday</th>
-        <th style="color: crimson">Movie acted</th>
+        <th id="heading">#</th>
+        <th id="heading">Star Name</th>
+        <th id="heading">Birthday</th>
+        <th id="heading">Movie acted</th>
         <th>
     </tr>
     </thead>

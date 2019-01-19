@@ -15,10 +15,19 @@ h1 {
 		
 }
 
-	tr:nth-child(even) {
-  background-color: #d2e266
+tr:nth-child(even) {
+  /* background-color: #d2e299; */
+  background-color: #fde3b2;
 }
+
+tr:nth-child(odd) {
+  background-color: #fbc561;
 }
+
+#heading{
+font-size: 24px;
+}
+
 	
 </style>
 <!doctype html>
@@ -39,7 +48,7 @@ h1 {
 
 
 <h1>       Top Rated 20 Movie List    </h1>
-
+<div style="overflow-x:auto;">
 <!-- Id "star_table" is useful for jQuery to find the html element with id, class here is mapping to Bootstrap defined class CSS -->
 <table style="margin-top: 40px" id=star_table class="table table-striped">
     <tr>
@@ -49,13 +58,13 @@ h1 {
     <thead>
 
         <!-- Titles of each column-->
-        <th style="color: crimson"># </th>
-        <th style="color: crimson">Title</th>
-        <th style="color: crimson">Year</th>
-        <th style="color: crimson">Director</th>
-        <th style="color: crimson">List of genres</th>
-        <th style="color: crimson">List of stars</th>
-        <th style="color: crimson">Rating</th>
+        <th id="heading"># </th>
+        <th id="heading">Title</th>
+        <th id="heading">Year</th>
+        <th id="heading">Director</th>
+        <th id="heading">List of genres</th>
+        <th id="heading">List of stars</th>
+        <th id="heading">Rating</th>
 
     </tr>
 
@@ -64,7 +73,7 @@ h1 {
     <!-- Again, id "star_table_body" is useful for jQuery to find this html element -->
     <tbody id=star_table_body></tbody>
 </table>
-
+</div>
 <!-- Load jQuery and Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
