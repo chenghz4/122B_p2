@@ -41,6 +41,7 @@ public class StarsServlet extends HttpServlet {
 
             // Declare our statement
             Statement statement = dbcon.createStatement();
+            String search = request.getParameter("search");
 
             String query =
                     "select distinct a.id, a.title, a.year, a.director, " +
@@ -127,7 +128,9 @@ public class StarsServlet extends HttpServlet {
             out.write(jsonArray.toString());
             // set response status to 200 (OK)
             response.setStatus(200);
-
+            out.write(search);
+            
+            
             rs.close();
             statement.close();
             dbcon.close();
