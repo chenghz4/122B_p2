@@ -40,7 +40,7 @@ import java.util.Map;
         jsonObject.addProperty("title", searchtitle);
         jsonObject.addProperty("year", searchyear);
         jsonObject.addProperty("director", searchdirector);
-        jsonObject.addProperty("starname", searchstar);
+        jsonObject.addProperty("star", searchstar);
 
         out.write(jsonObject.toString());
         out.close();

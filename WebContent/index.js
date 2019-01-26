@@ -120,7 +120,10 @@ function handleStarResult(resultData) {
 
 }
 
-let starId = getParameterByName('id');
+let title = getParameterByName('id');
+let year= getParameterByName('year');
+let director= getParameterByName('director');
+let star= getParameterByName('star');
 /**
  * Once this .js is loaded, following scripts will be executed by the browser
  */
@@ -129,6 +132,7 @@ let starId = getParameterByName('id');
 jQuery.ajax({
     dataType: "json", // Setting return data type
     method: "GET", // Setting request method
-    url: "api/stars?id=" + starId, // Setting request url, which is mapped by StarsServlet in Stars.java
+    url: "api/stars?id=" + title +"&year="+ year +"&director="+ director +"&star="+ star,
+    // Setting request url, which is mapped by StarsServlet in Stars.java
     success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
 });

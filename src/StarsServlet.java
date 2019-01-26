@@ -33,13 +33,13 @@ public class StarsServlet extends HttpServlet {
 
         response.setContentType("application/json"); // Response mime type
         String id = request.getParameter("id");
-        String id_fix=id+"%";
+        String id_fix="%"+id+"%";
         String year = request.getParameter("year");
-
-        String director = request.getParameter("id");
-        String director_fix=director+"%";
-        String star = request.getParameter("id");
-        String star_fix=star+"%";
+        String year_fix=year+"%";
+        String director = request.getParameter("director");
+        String director_fix="%"+director+"%";
+        String star = request.getParameter("star");
+        String star_fix="%"+star+"%";
 
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();
@@ -58,15 +58,16 @@ public class StarsServlet extends HttpServlet {
                             " GROUP_CONCAT(distinct g.name) as genre_name, r.rating " +
                             "from movies as m, ratings as r, genres as g, genres_in_movies as y " +
                             "where m.id=y.movieId and y.genreId=g.id and r.movieId=m.id " +
-                            "and m.title like ?  " +
+                            "and m.title like ?  and m.year like ? and m.director like ? " +
                             "group by m.id " +
                             "order by r.rating desc " +
                             ") as a,  " +
                             " " +
                             "stars as s, stars_in_movies as x " +
-                            "where a.id=x.movieId and x.starId=s.id  " +
+                            "where a.id=x.movieId and x.starId=s.id and s.name like ?  " +
                             "group by a.id " +
-                            "order by a.rating desc " ;
+                            "order by a.rating desc " +
+                            "limit 300" ;
             String query1 =
                     "select distinct a.id, a.title, a.year, a.director, " +
                             "GROUP_CONCAT(distinct a.genre_name) as genre_name, a.rating,  " +
@@ -90,6 +91,9 @@ public class StarsServlet extends HttpServlet {
             // Perform the query
             PreparedStatement statement = dbcon.prepareStatement(query);
             statement.setString(1, id_fix);
+            statement.setString(2,year_fix);
+            statement.setString(3,director_fix);
+            statement.setString(4,star_fix);
             ResultSet rs = statement.executeQuery();
             //
 
