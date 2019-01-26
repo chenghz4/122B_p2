@@ -40,28 +40,40 @@ public class LoginServlet extends HttpServlet {
 
 
         try {
+            String email="";
             // Get a connection from dataSource
             Connection dbcon = dataSource.getConnection();
 
-            String query = "select count(id) " +
+            String query1="select count(email) " +
                     "from customers " +
-                    "where id=? and password=? " ;
+                    "where email=?  ";
+            PreparedStatement statement1 = dbcon.prepareStatement(query1);
+            statement1.setString(1, username);
+            ResultSet rs1 = statement1.executeQuery();
+            if(rs1.next()){
+                email = rs1.getString("count(email)");
+            }
+
+            rs1.close();
+            statement1.close();
+
+            String query = "select count(email)  " +
+                    "from customers " +
+                    "where email=? and password=? " ;
             PreparedStatement statement = dbcon.prepareStatement(query);
             statement.setString(1, username);
             statement.setString(2, password);
 
-
-
             ResultSet rs = statement.executeQuery();
             String check = "";
+
+
+
             if(rs.next()){
-                check = rs.getString("count(id)");
+                check = rs.getString("count(email)");
             }
 
 
-
-
-//            out.write(check);
             rs.close();
             statement.close();
             dbcon.close();
@@ -88,7 +100,13 @@ public class LoginServlet extends HttpServlet {
                 // Login fails
                 JsonObject responseJsonObject = new JsonObject();
                 responseJsonObject.addProperty("status", "fail");
-                responseJsonObject.addProperty("message", "user information doesn't match");
+
+                if (!email.equals("1")) {
+                    responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
+                } else {
+                    responseJsonObject.addProperty("message", "incorrect password");
+                }
+
 
                 out.write(responseJsonObject.toString());
             }
