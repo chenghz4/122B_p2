@@ -89,7 +89,7 @@ function handleStarResult(resultData) {
     space +="<th>";
     space +="</th>";
     space +="</tr>";
-    movieTableBodyElement.append(space);
+    starTableBodyElement.append(space);
     let goback = "";
 
 
@@ -114,7 +114,7 @@ function handleStarResult(resultData) {
         '</a>' +
         "</th>";
     goback += "</tr>";
-    movieTableBodyElement.append(goback);
+    starTableBodyElement.append(goback);
 
 
 
