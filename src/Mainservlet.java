@@ -30,12 +30,18 @@ import java.util.Map;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         String searchtitle = request.getParameter("search");
+        String searchyear = request.getParameter("search_year");
+        String searchdirector = request.getParameter("search_director");
+        String searchstar = request.getParameter("search_star");
+
         PrintWriter out = response.getWriter();
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("title", searchtitle);
-        jsonObject.addProperty("year", "");
-        jsonObject.addProperty("director", "");
+        jsonObject.addProperty("year", searchyear);
+        jsonObject.addProperty("director", searchdirector);
+        jsonObject.addProperty("starname", searchstar);
+
         out.write(jsonObject.toString());
         out.close();
 

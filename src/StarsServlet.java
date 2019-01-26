@@ -34,6 +34,13 @@ public class StarsServlet extends HttpServlet {
         response.setContentType("application/json"); // Response mime type
         String id = request.getParameter("id");
         String id_fix=id+"%";
+        String year = request.getParameter("year");
+
+        String director = request.getParameter("id");
+        String director_fix=director+"%";
+        String star = request.getParameter("id");
+        String star_fix=star+"%";
+
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();
 
