@@ -124,6 +124,47 @@ let title = getParameterByName('id');
 let year= getParameterByName('year');
 let director= getParameterByName('director');
 let star= getParameterByName('star');
+let page=getParameterByName('page');
+let number=getParameterByName('number');
+
+
+
+function handlenumberResult(resultDataString) {
+    resultDataJson = JSON.parse(resultDataString);
+    console.log("jump to index");
+    // If login succeeds, it will redirect the user to index.html
+    window.location.replace(
+        "index.html?id="+title+
+        "&year="+year +
+        "&director="+director+
+        "&star="+star+
+        "&page="+"1"+
+        "&number="+resultDataJson["number"]);
+
+}
+
+function submitLoginForm(formSubmitEvent) {
+    console.log("ss");
+    formSubmitEvent.preventDefault();
+
+    $.post(
+        "api/stars",
+        // Serialize the login form to the data sent by POST request
+        $("#number").serialize(),
+        (resultDataString) => handlenumberResult(resultDataString)
+);
+}
+
+// Bind the submit action of the form to a handler function
+$("#number").submit((event) => submitLoginForm(event));
+
+
+
+
+
+
+
+
 /**
  * Once this .js is loaded, following scripts will be executed by the browser
  */
@@ -132,7 +173,7 @@ let star= getParameterByName('star');
 jQuery.ajax({
     dataType: "json", // Setting return data type
     method: "GET", // Setting request method
-    url: "api/stars?id=" + title +"&year="+ year +"&director="+ director +"&star="+ star,
+    url: "api/stars?id="+title+"&year="+year+"&director="+director+"&star="+star+"&page="+page+"&number="+number,
     // Setting request url, which is mapped by StarsServlet in Stars.java
     success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
 });

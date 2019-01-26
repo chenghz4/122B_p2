@@ -26,12 +26,30 @@ public class StarsServlet extends HttpServlet {
     @Resource(name = "jdbc/moviedb")
     private DataSource dataSource;
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
+        String number = request.getParameter("num");
+        PrintWriter out = response.getWriter();
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("number", number);
+
+
+        out.write(jsonObject.toString());
+        out.close();
+
+
+
+    }
+
+
+
+
+
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("application/json"); // Response mime type
+        //response.setContentType("application/json"); // Response mime type
         String id = request.getParameter("id");
         String id_fix="%"+id+"%";
         String year = request.getParameter("year");
@@ -40,6 +58,11 @@ public class StarsServlet extends HttpServlet {
         String director_fix="%"+director+"%";
         String star = request.getParameter("star");
         String star_fix="%"+star+"%";
+
+
+
+        String number=request.getParameter("number");
+        int numberfix=Integer.parseInt(number);
 
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();
@@ -67,7 +90,7 @@ public class StarsServlet extends HttpServlet {
                             "where a.id=x.movieId and x.starId=s.id and s.name like ?  " +
                             "group by a.id " +
                             "order by a.rating desc " +
-                            "limit 300" ;
+                            "limit ?" ;
             String query1 =
                     "select distinct a.id, a.title, a.year, a.director, " +
                             "GROUP_CONCAT(distinct a.genre_name) as genre_name, a.rating,  " +
@@ -94,6 +117,7 @@ public class StarsServlet extends HttpServlet {
             statement.setString(2,year_fix);
             statement.setString(3,director_fix);
             statement.setString(4,star_fix);
+            statement.setInt(5,numberfix);
             ResultSet rs = statement.executeQuery();
             //
 
