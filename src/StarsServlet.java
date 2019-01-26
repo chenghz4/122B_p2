@@ -29,16 +29,20 @@ public class StarsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         String number = request.getParameter("num");
-
+        String page_p="";
         String page_n=(page_global+1)+"";
 
+
+
+        if(page_global>0)  page_p=(page_global-1)+"";
+        else  page_p=page_global+"";
 
 
         PrintWriter out = response.getWriter();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("number", number);
         jsonObject.addProperty("page_n", page_n);
-
+        jsonObject.addProperty("page_p", page_p);
         out.write(jsonObject.toString());
         out.close();
 

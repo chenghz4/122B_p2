@@ -192,6 +192,36 @@ $("#page_next").submit((event) => submitnextForm(event));
 
 
 
+function handlepreResult(resultDataString) {
+    resultDataJson = JSON.parse(resultDataString);
+    console.log(resultDataJson["page_p"]);
+    // If login succeeds, it will redirect the user to index.html
+    window.location.replace(
+        "index.html?id="+title+
+        "&year="+year +
+        "&director="+director+
+        "&star="+star+
+        "&page="+resultDataJson["page_p"]+
+        "&number="+number);
+
+}
+
+function submitpreForm(formSubmitEvent) {
+    console.log("ss");
+    formSubmitEvent.preventDefault();
+
+    $.post(
+        "api/stars",
+        // Serialize the login form to the data sent by POST request
+        $("#page_prev").serialize(),
+        (resultDataString) => handlepreResult(resultDataString)
+);
+}
+
+// Bind the submit action of the form to a handler function
+$("#page_prev").submit((event) => submitpreForm(event));
+
+
 
 
 
