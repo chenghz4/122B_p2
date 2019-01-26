@@ -55,14 +55,12 @@ public class Singlemovie extends HttpServlet {
                             "where m.id=y.movieId and y.genreId=g.id and r.movieId=m.id " +
                             "group by m.id " +
                             "order by r.rating desc " +
-                            "limit 20 " +
                             ") as a,  " +
                             " " +
                             "stars as s, stars_in_movies as x " +
                             "where a.id=x.movieId and x.starId=s.id and x.movieId=?  " +
                             "group by a.id " +
-                            "order by a.rating desc " +
-                            "limit 20 ";
+                            "order by a.rating desc ";
 
 
             // Declare our statement
