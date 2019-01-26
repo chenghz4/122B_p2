@@ -21,7 +21,7 @@ import java.sql.Statement;
 @WebServlet(name = "StarsServlet", urlPatterns = "/api/stars")
 public class StarsServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
+    public int page_global;
     // Create a dataSource which registered in web.xml
     @Resource(name = "jdbc/moviedb")
     private DataSource dataSource;
@@ -29,10 +29,15 @@ public class StarsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
         String number = request.getParameter("num");
+
+        String page_n=(page_global+1)+"";
+
+
+
         PrintWriter out = response.getWriter();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("number", number);
-
+        jsonObject.addProperty("page_n", page_n);
 
         out.write(jsonObject.toString());
         out.close();
@@ -64,6 +69,11 @@ public class StarsServlet extends HttpServlet {
         String number=request.getParameter("number");
         int numberfix=Integer.parseInt(number);
 
+
+        String page=request.getParameter("page");
+        page_global=Integer.parseInt(page);
+        int offset=(Integer.parseInt(page)-1)*numberfix;
+
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();
 
@@ -90,7 +100,9 @@ public class StarsServlet extends HttpServlet {
                             "where a.id=x.movieId and x.starId=s.id and s.name like ?  " +
                             "group by a.id " +
                             "order by a.rating desc " +
-                            "limit ?" ;
+                            "limit ?, ? " ;
+
+
             String query1 =
                     "select distinct a.id, a.title, a.year, a.director, " +
                             "GROUP_CONCAT(distinct a.genre_name) as genre_name, a.rating,  " +
@@ -117,7 +129,8 @@ public class StarsServlet extends HttpServlet {
             statement.setString(2,year_fix);
             statement.setString(3,director_fix);
             statement.setString(4,star_fix);
-            statement.setInt(5,numberfix);
+            statement.setInt(5,offset);
+            statement.setInt(6,numberfix);
             ResultSet rs = statement.executeQuery();
             //
 
