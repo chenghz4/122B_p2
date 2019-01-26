@@ -48,6 +48,20 @@ font-size: 24px;
 
 
 <h1>      Movie List    </h1>
+
+
+<form id="number" method="post" action="#">
+    <label><b>Enter number of movie per page Here</b></label>
+    <br>
+    <input type="text" placeholder="Enter number of movie per page Here" name="number">
+
+    <br>
+
+    <input type="submit" value="Go">
+</form>
+<div id="page_error_message"></div>
+
+
 <div style="overflow-x:auto;">
 <!-- Id "star_table" is useful for jQuery to find the html element with id, class here is mapping to Bootstrap defined class CSS -->
 <table style="margin-top: 40px" id=star_table class="table table-striped">
