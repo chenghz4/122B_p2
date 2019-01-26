@@ -9,6 +9,24 @@
  */
 
 
+function getParameterByName(target) {
+    // Get request URL
+    let url = window.location.href;
+    // Encode target parameter name to url encoding
+    target = target.replace(/[\[\]]/g, "\\$&");
+
+    // Ues regular expression to find matched parameter value
+    let regex = new RegExp("[?&]" + target + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    console.log(decodeURIComponent(results[2].replace(/\+/g, " ")));
+    // Return the decoded parameter value
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
+
 /**
  * Handles the data returned by the API, read the jsonObject and populate data into html elements
  * @param resultData jsonObject
@@ -19,10 +37,6 @@ function handleStarResult(resultData) {
     // Populate the star table
     // Find the empty table body by id "star_table_body"
     let starTableBodyElement = jQuery("#star_table_body");
-
-
-
-
 
     for (let i = 0; i <resultData.length; i++) {
 
@@ -70,9 +84,43 @@ function handleStarResult(resultData) {
 
 
     }
+    let space="";
+    space +="<tr>";
+    space +="<th>";
+    space +="</th>";
+    space +="</tr>";
+    movieTableBodyElement.append(space);
+    let goback = "";
+
+
+    goback +="<tr>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +=
+        "<th style='color: crimson'>" +
+        // Add a link to single-star.html with id passed with GET url parameter
+        '<a href="Main.html" >'
+        + "Go Back to Search, Browsing Page" +     // display star_name for the link text
+        '</a>' +
+        "</th>";
+    goback += "</tr>";
+    movieTableBodyElement.append(goback);
+
+
+
 }
 
-
+let starId = getParameterByName('id');
 /**
  * Once this .js is loaded, following scripts will be executed by the browser
  */
@@ -81,6 +129,6 @@ function handleStarResult(resultData) {
 jQuery.ajax({
     dataType: "json", // Setting return data type
     method: "GET", // Setting request method
-    url: "api/stars", // Setting request url, which is mapped by StarsServlet in Stars.java
+    url: "api/stars?id=" + starId, // Setting request url, which is mapped by StarsServlet in Stars.java
     success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
 });

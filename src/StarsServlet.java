@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -31,7 +32,8 @@ public class StarsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("application/json"); // Response mime type
-
+        String id = request.getParameter("id");
+        String id_fix=id+"%";
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();
 
@@ -39,10 +41,26 @@ public class StarsServlet extends HttpServlet {
             // Get a connection from dataSource
             Connection dbcon = dataSource.getConnection();
 
-            // Declare our statement
-            Statement statement = dbcon.createStatement();
-
             String query =
+                    "select distinct a.id, a.title, a.year, a.director, " +
+                            "GROUP_CONCAT(distinct a.genre_name) as genre_name, a.rating,  " +
+                            "GROUP_CONCAT(distinct s.name order by s.id) as star_name, " +
+                            " GROUP_CONCAT(distinct s.id) as star_id " +
+                            "from " +
+                            "(select distinct m.id, m.title, m.year, m.director, " +
+                            " GROUP_CONCAT(distinct g.name) as genre_name, r.rating " +
+                            "from movies as m, ratings as r, genres as g, genres_in_movies as y " +
+                            "where m.id=y.movieId and y.genreId=g.id and r.movieId=m.id " +
+                            "and m.title like ?  " +
+                            "group by m.id " +
+                            "order by r.rating desc " +
+                            ") as a,  " +
+                            " " +
+                            "stars as s, stars_in_movies as x " +
+                            "where a.id=x.movieId and x.starId=s.id  " +
+                            "group by a.id " +
+                            "order by a.rating desc " ;
+            String query1 =
                     "select distinct a.id, a.title, a.year, a.director, " +
                             "GROUP_CONCAT(distinct a.genre_name) as genre_name, a.rating,  " +
                             "GROUP_CONCAT(distinct s.name order by s.id) as star_name, " +
@@ -62,25 +80,10 @@ public class StarsServlet extends HttpServlet {
                             "group by a.id " +
                             "order by a.rating desc " +
                             "limit 20 ";
-
             // Perform the query
-            String query1 =
-                    "select distinct a.id, a.title, a.year, a.director, " +
-                            " a.genre_name as genre_name, a.rating,  " +
-                            "  s.name as star_name,  s.id as star_id " +
-                            "from " +
-                            "(select distinct m.id, m.title, m.year, m.director,g.name as genre_name, r.rating " +
-                            "from movies as m, ratings as r, genres as g, genres_in_movies as y " +
-                            "where m.id=y.movieId and y.genreId=g.id and r.movieId=m.id  " +
-                            "order by r.rating desc " +
-                            "limit 20) as a,  " +
-                            " " +
-                            "stars as s, stars_in_movies as x " +
-                            "where a.id=x.movieId and x.starId=s.id  " ;
-
-
-            // Perform the query
-            ResultSet rs = statement.executeQuery(query);
+            PreparedStatement statement = dbcon.prepareStatement(query);
+            statement.setString(1, id_fix);
+            ResultSet rs = statement.executeQuery();
             //
 
 
