@@ -10,7 +10,8 @@ function handleLoginResult(resultDataString) {
         "&page="+"1"+
         "&number="+"20"+
         "&sort="+"a.rating desc"+
-        "&genres="+""
+        "&genres="+""+
+        "&letters="+""
     );
 
 }
@@ -46,7 +47,8 @@ function handlebrowsing_gen(resultDataString) {
         "&page="+"1"+
         "&number="+"20"+
         "&sort="+"a.rating desc"+
-        "&genres="+resultDataJson["genres"]
+        "&genres="+resultDataJson["genres"]+
+        "&letters="+""
     );
 
 }
@@ -72,3 +74,45 @@ function handlegenre(formSubmitEvent) {
 
 $("#browsing_genres").submit((event) => handlegenre(event));
 
+
+
+
+function handlebrowsing_let(resultDataString) {
+
+    resultDataJson = JSON.parse(resultDataString);
+    console.log(resultDataJson["letters"]);
+    // If login succeeds, it will redirect the user to index.html
+    window.location.replace(
+        "index.html?id="+""+
+        "&year="+"" +
+        "&director="+""+
+        "&star="+""+
+        "&page="+"1"+
+        "&number="+"20"+
+        "&sort="+"a.rating desc"+
+        "&genres="+""+
+        "&letters="+resultDataJson["letters"]
+    );
+
+}
+
+
+
+function handleletter (formSubmitEvent) {
+    console.log("submit cart form");
+    /**
+     * When users click the submit button, the browser will not direct
+     * users to the url defined in HTML form. Instead, it will call this
+     * event handler when the event is triggered.
+     */
+    formSubmitEvent.preventDefault();
+
+    $.post(
+        "api/Main",
+        // Serialize the cart form to the data sent by POST request
+        $("#browsing_letter").serialize(),
+        (resultDataString) => handlebrowsing_let(resultDataString)
+);
+}
+
+$("#browsing_letter").submit((event) => handleletter(event));

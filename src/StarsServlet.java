@@ -34,8 +34,8 @@ public class StarsServlet extends HttpServlet {
 
         if(page_global>0)  page_p=(page_global-1)+"";
         else  page_p=page_global+"";
-        String sort_r=" a.rating desc ";
-        String sort_t=" a.title desc ";
+        String sort_r="a.rating desc";
+        String sort_t="a.title desc";
 
         PrintWriter out = response.getWriter();
         JsonObject jsonObject = new JsonObject();
@@ -63,22 +63,33 @@ public class StarsServlet extends HttpServlet {
         String id = request.getParameter("id");
         String id_fix="%"+id+"%";
         String year = request.getParameter("year");
-        String year_fix=year+"%";
+        String year_fix;
+
+        //if(year.equals(""))
+            year_fix="%"+year+"%";
+        //else year_fix=year;
+
         String director = request.getParameter("director");
         String director_fix="%"+director+"%";
         String star = request.getParameter("star");
         String star_fix="%"+star+"%";
-
-
-        String sort=request.getParameter("sort");
+        String page=request.getParameter("page");
         String number=request.getParameter("number");
+
         int numberfix=Integer.parseInt(number);
 
-
-        String page=request.getParameter("page");
         page_global=Integer.parseInt(page);
         int offset=(Integer.parseInt(page)-1)*numberfix;
 
+        String sort=request.getParameter("sort");
+        String genres=request.getParameter("genres");
+
+        String genres_fix;
+        genres_fix="%"+genres+"%";
+
+
+        String letters=request.getParameter("letters");
+        String letters_fix=letters+"%";
         // Output stream to STDOUT
         PrintWriter out = response.getWriter();
 
@@ -97,6 +108,7 @@ public class StarsServlet extends HttpServlet {
                             "from movies as m, ratings as r, genres as g, genres_in_movies as y " +
                             "where m.id=y.movieId and y.genreId=g.id and r.movieId=m.id " +
                             "and m.title like ?  and m.year like ? and m.director like ? " +
+                            "and g.name like ? and m.title like ? " +
                             "group by m.id " +
                             ") as a,  " +
                             " " +
@@ -133,9 +145,12 @@ public class StarsServlet extends HttpServlet {
             statement.setString(1, id_fix);
             statement.setString(2,year_fix);
             statement.setString(3,director_fix);
-            statement.setString(4,star_fix);
-            statement.setInt(5,offset);
-            statement.setInt(6,numberfix);
+            statement.setString(4,genres_fix);
+            statement.setString(5,letters_fix);
+            statement.setString(6,star_fix);
+
+            statement.setInt(7,offset);
+            statement.setInt(8,numberfix);
             ResultSet rs = statement.executeQuery();
             //
 

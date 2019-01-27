@@ -32,8 +32,9 @@ function getParameterByName(target) {
  * @param resultData jsonObject
  */
 function handleStarResult(resultData) {
-    console.log(sort);
-
+    console.log(year);
+    console.log(genres);
+    console.log(title);
     // Populate the star table
     // Find the empty table body by id "star_table_body"
     let starTableBodyElement = jQuery("#star_table_body");
@@ -127,6 +128,8 @@ let star= getParameterByName('star');
 let page=getParameterByName('page');
 let number=getParameterByName('number');
 let sort=getParameterByName('sort');
+let genres=getParameterByName('genres');
+let letters =getParameterByName('letters')
 
 
 
@@ -141,7 +144,11 @@ function handlenumberResult(resultDataString) {
         "&star="+star+
         "&page="+page+
         "&number="+resultDataJson["number"]+
-        "&sort="+sort
+        "&sort="+sort+
+        "&genres="+genres+
+        "&letters="+letters
+
+
     );
 
 }
@@ -171,7 +178,10 @@ function handlenextResult(resultDataString) {
         "&star="+star+
         "&page="+resultDataJson["page_n"]+
         "&number="+number+
-        "&sort="+sort
+        "&sort="+sort+
+        "&genres="+genres+
+        "&letters="+letters
+
     );
 
 }
@@ -204,7 +214,9 @@ function handlepreResult(resultDataString) {
         "&star="+star+
         "&page="+resultDataJson["page_p"]+
         "&number="+number+
-        "&sort="+sort
+        "&sort="+sort+
+        "&genres="+genres+
+        "&letters="+letters
     );
 
 }
@@ -234,7 +246,9 @@ function handlesort_rResult(resultDataString) {
         "&star="+star+
         "&page="+page+
         "&number="+number+
-        "&sort="+resultDataJson["sort_r"]
+        "&sort="+resultDataJson["sort_r"]+
+        "&genres="+genres+
+        "&letters="+letters
     );
 
 }
@@ -262,7 +276,9 @@ function handlesort_tResult(resultDataString) {
         "&star="+star+
         "&page="+page+
         "&number="+number+
-        "&sort="+resultDataJson["sort_t"]
+        "&sort="+resultDataJson["sort_t"]+
+        "&genres="+genres+
+        "&letters="+letters
     );
 
 }
@@ -291,7 +307,7 @@ jQuery.ajax({
     dataType: "json", // Setting return data type
     method: "GET", // Setting request method
     url: "api/stars?id="+title+"&year="+year+"&director="+director+"&star="+star+"&page="+page+"&number="+number
-    +"&sort="+sort,
+    +"&sort="+sort+"&genres="+genres+"&letters="+letters,
     // Setting request url, which is mapped by StarsServlet in Stars.java
     success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
 });

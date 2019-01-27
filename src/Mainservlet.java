@@ -33,7 +33,8 @@ import java.util.Map;
         String searchyear = request.getParameter("search_year");
         String searchdirector = request.getParameter("search_director");
         String searchstar = request.getParameter("search_star");
-
+        String genres = request.getParameter("genres");
+        String letters=request.getParameter("letters");
         PrintWriter out = response.getWriter();
         JsonObject jsonObject = new JsonObject();
 
@@ -41,6 +42,8 @@ import java.util.Map;
         jsonObject.addProperty("year", searchyear);
         jsonObject.addProperty("director", searchdirector);
         jsonObject.addProperty("star", searchstar);
+        jsonObject.addProperty("genres", genres);
+        jsonObject.addProperty("letters", letters);
 
         out.write(jsonObject.toString());
         out.close();
