@@ -8,7 +8,8 @@ function handleLoginResult(resultDataString) {
         "&director="+resultDataJson["director"]+
         "&star="+resultDataJson["star"]+
         "&page="+"1"+
-        "&number="+"20"
+        "&number="+"20"+
+        "&sort="+" a.rating desc "
     );
 
 }

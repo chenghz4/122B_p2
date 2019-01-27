@@ -32,7 +32,7 @@ function getParameterByName(target) {
  * @param resultData jsonObject
  */
 function handleStarResult(resultData) {
-    console.log("handleStarResult: populating star table from resultData");
+    console.log(sort);
 
     // Populate the star table
     // Find the empty table body by id "star_table_body"
@@ -126,6 +126,7 @@ let director= getParameterByName('director');
 let star= getParameterByName('star');
 let page=getParameterByName('page');
 let number=getParameterByName('number');
+let sort=getParameterByName('sort');
 
 
 
@@ -139,11 +140,12 @@ function handlenumberResult(resultDataString) {
         "&director="+director+
         "&star="+star+
         "&page="+page+
-        "&number="+resultDataJson["number"]);
+        "&number="+resultDataJson["number"]+
+        "&sort="+sort
+    );
 
 }
-
-function submitLoginForm(formSubmitEvent) {
+function submitnumber(formSubmitEvent) {
     console.log("ss");
     formSubmitEvent.preventDefault();
 
@@ -154,9 +156,7 @@ function submitLoginForm(formSubmitEvent) {
         (resultDataString) => handlenumberResult(resultDataString)
 );
 }
-
-// Bind the submit action of the form to a handler function
-$("#number").submit((event) => submitLoginForm(event));
+$("#number").submit((event) => submitnumber(event));
 
 
 
@@ -170,10 +170,11 @@ function handlenextResult(resultDataString) {
         "&director="+director+
         "&star="+star+
         "&page="+resultDataJson["page_n"]+
-        "&number="+number);
+        "&number="+number+
+        "&sort="+sort
+    );
 
 }
-
 function submitnextForm(formSubmitEvent) {
     console.log("ss");
     formSubmitEvent.preventDefault();
@@ -202,10 +203,11 @@ function handlepreResult(resultDataString) {
         "&director="+director+
         "&star="+star+
         "&page="+resultDataJson["page_p"]+
-        "&number="+number);
+        "&number="+number+
+        "&sort="+sort
+    );
 
 }
-
 function submitpreForm(formSubmitEvent) {
     console.log("ss");
     formSubmitEvent.preventDefault();
@@ -217,18 +219,65 @@ function submitpreForm(formSubmitEvent) {
         (resultDataString) => handlepreResult(resultDataString)
 );
 }
-
-// Bind the submit action of the form to a handler function
 $("#page_prev").submit((event) => submitpreForm(event));
 
 
 
 
+function handlesort_rResult(resultDataString) {
+    resultDataJson = JSON.parse(resultDataString);
+    // If login succeeds, it will redirect the user to index.html
+    window.location.replace(
+        "index.html?id="+title+
+        "&year="+year +
+        "&director="+director+
+        "&star="+star+
+        "&page="+page+
+        "&number="+number+
+        "&sort="+resultDataJson["sort_r"]
+    );
+
+}
+function submitsort_r(formSubmitEvent) {
+    formSubmitEvent.preventDefault();
+
+    $.post(
+        "api/stars",
+        // Serialize the login form to the data sent by POST request
+        $("#sort_rate").serialize(),
+        (resultDataString) => handlesort_rResult(resultDataString)
+);
+}
+$("#sort_rate").submit((event) => submitsort_r(event));
 
 
 
+function handlesort_tResult(resultDataString) {
+    resultDataJson = JSON.parse(resultDataString);
+    // If login succeeds, it will redirect the user to index.html
+    window.location.replace(
+        "index.html?id="+title+
+        "&year="+year +
+        "&director="+director+
+        "&star="+star+
+        "&page="+page+
+        "&number="+number+
+        "&sort="+resultDataJson["sort_t"]
+    );
 
+}
+function submitsort_t(formSubmitEvent) {
+    console.log("ss");
+    formSubmitEvent.preventDefault();
 
+    $.post(
+        "api/stars",
+        // Serialize the login form to the data sent by POST request
+        $("#sort_title").serialize(),
+        (resultDataString) => handlesort_tResult(resultDataString)
+);
+}
+$("#sort_title").submit((event) => submitsort_t(event));
 
 
 
@@ -241,7 +290,8 @@ $("#page_prev").submit((event) => submitpreForm(event));
 jQuery.ajax({
     dataType: "json", // Setting return data type
     method: "GET", // Setting request method
-    url: "api/stars?id="+title+"&year="+year+"&director="+director+"&star="+star+"&page="+page+"&number="+number,
+    url: "api/stars?id="+title+"&year="+year+"&director="+director+"&star="+star+"&page="+page+"&number="+number
+    +"&sort="+sort,
     // Setting request url, which is mapped by StarsServlet in Stars.java
     success: (resultData) => handleStarResult(resultData) // Setting callback function to handle data returned successfully by the StarsServlet
 });

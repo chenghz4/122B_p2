@@ -32,17 +32,18 @@ public class StarsServlet extends HttpServlet {
         String page_p="";
         String page_n=(page_global+1)+"";
 
-
-
         if(page_global>0)  page_p=(page_global-1)+"";
         else  page_p=page_global+"";
-
+        String sort_r=" a.rating desc ";
+        String sort_t=" a.title desc ";
 
         PrintWriter out = response.getWriter();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("number", number);
         jsonObject.addProperty("page_n", page_n);
         jsonObject.addProperty("page_p", page_p);
+        jsonObject.addProperty("sort_r", sort_r);
+        jsonObject.addProperty("sort_t", sort_t);
         out.write(jsonObject.toString());
         out.close();
 
@@ -69,7 +70,7 @@ public class StarsServlet extends HttpServlet {
         String star_fix="%"+star+"%";
 
 
-
+        String sort=request.getParameter("sort");
         String number=request.getParameter("number");
         int numberfix=Integer.parseInt(number);
 
@@ -97,14 +98,14 @@ public class StarsServlet extends HttpServlet {
                             "where m.id=y.movieId and y.genreId=g.id and r.movieId=m.id " +
                             "and m.title like ?  and m.year like ? and m.director like ? " +
                             "group by m.id " +
-                            "order by r.rating desc " +
                             ") as a,  " +
                             " " +
                             "stars as s, stars_in_movies as x " +
                             "where a.id=x.movieId and x.starId=s.id and s.name like ?  " +
-                            "group by a.id " +
-                            "order by a.rating desc " +
-                            "limit ?, ? " ;
+                            "group by a.id  " +
+                            "order by  " +
+                             sort  +
+                            " limit ?, ? " ;
 
 
             String query1 =
