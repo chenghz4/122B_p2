@@ -1,14 +1,44 @@
 
+
+function getParameterByName(target) {
+    // Get request URL
+    let url = window.location.href;
+    // Encode target parameter name to url encoding
+    target = target.replace(/[\[\]]/g, "\\$&");
+
+    // Ues regular expression to find matched parameter value
+    let regex = new RegExp("[?&]" + target + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    console.log(decodeURIComponent(results[2].replace(/\+/g, " ")));
+    // Return the decoded parameter value
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
+
 function handleSessionData(resultDataString) {
-    resultDataJson = JSON.parse(resultDataString);
 
-    console.log("handle session response");
-    console.log(resultDataJson);
-    console.log(resultDataJson["sessionID"]);
+    const resultArray = resultDataString.split(",");
+    console.log(resultArray);
 
+    let res = "<ul>";
+    for(let i = 0; i < resultArray.length; i++) {
+        // each item will be in a bullet point
+        res += "<li>" + resultArray[i] + "</li>";
+    }
+    res += "</ul>";
+
+    // clear the old array and show the new array in the frontend
+    $("#movie_list").html("");
+    $("#movie_list").append(res);
     // show the session information
-    $("#sessionID").text("Session ID: " + resultDataJson["sessionID"]);
-    $("#lastAccessTime").text("Last access time: " + resultDataJson["lastAccessTime"]);
+    //$("#movie_id").text("Movie id: " + resultDataJson["movie_id"]);
+    //$("#movie_title").text("Movie title: " + resultDataJson["movie_title"]);
+   // $("#movie_year").text("Movie year: " + resultDataJson["movie_year"]);
+    //$("#movie_director").text("Movie director: " + resultDataJson["movie_director"]);
+
 }
 
 /**
@@ -53,9 +83,13 @@ function handleCartInfo(cartEvent) {
 );
 }
 
+
+let id=getParameterByName("id");
+
+
 $.ajax({
     type: "POST",
-    url: "api/cart",
+    url: "api/cart?id="+id,
     success: (resultDataString) => handleSessionData(resultDataString)
 });
 

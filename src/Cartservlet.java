@@ -1,10 +1,18 @@
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import javax.annotation.Resource;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,21 +23,82 @@ import java.util.Date;
 @WebServlet(name = "Cartservlet", urlPatterns = "/api/cart")
 public class Cartservlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    @Resource(name = "jdbc/moviedb")
+    private DataSource dataSource;
 
-    /**
-     * handles POST requests to store session information
-     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
-        String sessionId = session.getId();
-        Long lastAccessTime = session.getLastAccessedTime();
+        String movieid=request.getParameter("id");
+        PrintWriter out = response.getWriter();
 
-        JsonObject responseJsonObject = new JsonObject();
-        responseJsonObject.addProperty("sessionID", sessionId);
-        responseJsonObject.addProperty("lastAccessTime", new Date(lastAccessTime).toString());
+        try {
+            // Get a connection from dataSource
+            Connection dbcon = dataSource.getConnection();
+            String query ="select id, title, year,director " +
+                    "from movies " +
+                    "where id=? ";
+            PreparedStatement statement = dbcon.prepareStatement(query);
+            statement.setString(1, movieid);
+            ResultSet rs = statement.executeQuery();
+            String movie_id = "";
+            String movie_title ="";
+            String movie_year = "";
+            String movie_director = "";
 
-        // write all the data into the jsonObject
-        response.getWriter().write(responseJsonObject.toString());
+            if(rs.next()){
+                movie_id = rs.getString("id");
+                movie_title = rs.getString("title");
+                movie_year = rs.getString("year");
+                movie_director = rs.getString("director");
+
+
+            }
+
+
+
+            ArrayList<String> previousmovies = (ArrayList<String>) session.getAttribute("previousmovies");
+            if (previousmovies == null) {
+                previousmovies = new ArrayList<>();
+                previousmovies.add(movie_title);
+                session.setAttribute("previousmovies", previousmovies);
+            } else {
+                // prevent corrupted states through sharing under multi-threads
+                // will only be executed by one thread at a time
+                synchronized (previousmovies) {
+                    previousmovies.add(movie_title);
+                }
+            }
+
+            out.write(String.join(",", previousmovies));
+
+
+
+
+           // JsonObject responseJsonObject = new JsonObject();
+            //responseJsonObject.addProperty("movie_id", movie_id);
+            //responseJsonObject.addProperty("movie_title", movie_title);
+            //responseJsonObject.addProperty("movie_year", movie_year);
+            //responseJsonObject.addProperty("movie_director", movie_director);
+
+            // write all the data into the jsonObject
+            //response.getWriter().write(responseJsonObject.toString());
+
+
+            rs.close();
+            statement.close();
+            dbcon.close();
+        } catch (Exception e) {
+
+            // write error message JSON object to output
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("errorMessage", e.getMessage());
+            out.write(jsonObject.toString());
+
+            // set reponse status to 500 (Internal Server Error)
+            response.setStatus(500);
+
+        }
+        out.close();
     }
 
     /**
