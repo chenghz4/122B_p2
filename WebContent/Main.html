@@ -1,127 +1,186 @@
+<style>
+h1 {
+	text-align: center;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.19), 0 10px 6px
+		rgba(0, 0, 0, 0.23);
+	background-color: lightgray;
+	padding: 10px;
+	font-weight: 100px;
+	font-size: 16px;
+}
+
+.container {
+	width: 200px;
+	clear: both;
+	background-color: #fde3b2;
+}
+
+.container input {
+	width: 100%;
+	clear: both;
+}
+
+bodycolor {
+	background-color: #fde3b2;
+}
+
+h3 {
+	text-align: center;
+}
+button:hover {
+    color: #FFF;
+}
+</style>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+
+<title>Fablix Advanced Search - Movies</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
 
 
 </head>
-<body>
-<form id="search_form" method="post" action="#">
-    <label><b>Search Movie Here</b></label>
-    <br>
-    <input type="text" placeholder="Search movie name here" name="search">
-    <br>
-     <input type="text" placeholder="Search movie publish year here" name="search_year">
-    <br>
-    <input type="text" placeholder="Search movie director here" name="search_director">
-    <br>
-    <input type="text" placeholder="Search movie star name here" name="search_star">
+<body class="bodycolor">
+	<h1>Fablix Advanced Search</h1>
+	<div class="container">
+		<form id="search_form" method="post" action="#">
+			<br>
+			<h3>Search Movies By</h3>
+			<br>
+			<p>
+				<label>By Movie Name </label><input type="text"
+					placeholder="Search movie name here" name="search">
+			</p>
+			<p>
+				<label>By Movie Year </label><input type="text"
+					placeholder="Search movie publish year here" name="search_year">
+			</p>
+			<p>
+				<label>By Movie Director Name </label><input type="text"
+					placeholder="Search movie director here" name="search_director">
+			</p>
+			<p>
+				<label>By Movie Star Name </label><input type="text"
+					placeholder="Search movie star name here" name="search_star">
+			</p>
+			<p>
+				<input type="submit" value="Search">
+			</p>
+		</form>
+		<br> 
+		<hr>
+		
 
-    <input type="submit" value="Search">
-</form>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
+			
+		<h3>Browse Movies by First Letter</h3>
+		<br>
+
+		<form id="browsing_letter" method="post" action="#">
+
+			<select name="letters">
+
+
+				<!-- <label><b>Browsing Movie Here by letter</b></label> -->
+
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+				<option value="D">D</option>
+				<option value="E">E</option>
+				<option value="F">F</option>
+				<option value="G">G</option>
+				<option value="H">H</option>
+				<option value="I">I</option>
+				<option value="J">J</option>
+				<option value="K">K</option>
+				<option value="L">L</option>
+				<option value="M">M</option>
+				<option value="N">N</option>
+				<option value="O">O</option>
+				<option value="P">P</option>
+				<option value="Q">Q</option>
+				<option value="R">R</option>
+				<option value="S">S</option>
+				<option value="T">T</option>
+				<option value="U">U</option>
+				<option value="V">V</option>
+				<option value="W">W</option>
+				<option value="X">X</option>
+				<option value="Y">Y</option>
+				<option value="Z">Z</option>
+
+
+				<input type="submit" value="Browse By Letter">
+			</select>
+
+		</form>
+
+		<br>
+		<hr>
+		<h3>Browse Movies by Genre</h3>
+		<form id="browsing_genres" method="post" action="#">
+			<select name="genres">
+
+
+				<!-- <label><b>Browsing Movie Here by genres</b></label> -->
+
+				<option value="Action">Action</option>
+				<option value="Adult">Adult</option>
+				<option value="Adventure">Adventure</option>
+				<option value="Animation">Animation</option>
+				<option value="Biography">Biography</option>
+				<option value="Comedy">Comedy</option>
+				<option value="Crime">Crime</option>
+				<option value="Documentary">Documentary</option>
+				<option value="drama">Drama</option>
+				<option value="Family">Family</option>
+				<option value="Fantasy">Fantasy</option>
+				<option value="History">History</option>
+				<option value="Horror">Horror</option>
+				<option value="Music">Music</option>
+				<option value="Musical">Musical</option>
+				<option value="Mystery">Reality-TV</option>
+				<option value="Romance">Romance</option>
+				<option value="Sci-Fi">Sci-Fi</option>
+				<option value="Sport">Sport</option>
+				<option value="Thriller">Thriller</option>
+				<option value="War">War</option>
+				<option value="Western">Western</option>
+
+
+				<input type="submit" value="Browse By Genre"">
+			</select>
+
+		</form>
+	</div>
+
 
 <div id="search_error_message"></div>
 
 
 
-
-
-
-<form id="browsing_letter" method="post" action="#">
-
-<select name="letters">
-
-
-    <label><b>Browsing Movie Here by letter</b></label>
-
-    <option value ="A">A</option>
-    <option value ="B">B</option>
-    <option value="C">C</option>
-    <option value="D">D</option>
-    <option value ="E">E</option>
-    <option value ="F">F</option>
-    <option value="G">G</option>
-    <option value="H">H</option>
-    <option value ="I">I</option>
-    <option value ="J">J</option>
-    <option value="K">K</option>
-    <option value="L">L</option>
-    <option value ="M">M</option>
-    <option value ="N">N</option>
-    <option value="O">O</option>
-    <option value="P">P</option>
-    <option value ="Q">Q</option>
-    <option value ="R">R</option>
-    <option value="S">S</option>
-    <option value="T">T</option>
-    <option value ="U">U</option>
-    <option value ="V">V</option>
-    <option value="W">W</option>
-    <option value="X">X</option>
-    <option value ="Y">Y</option>
-    <option value ="Z">Z</option>
-
-
-    <input type="submit" value="Browsing letter">
-</select>
-
-</form>
-
-
-
-<form id="browsing_genres" method="post" action="#">
-    <select name="genres">
-
-
-        <label><b>Browsing Movie Here by genres</b></label>
-
-        <option value ="Action">Action</option>
-        <option value ="Adult">Adult</option>
-        <option value="Adventure">Adventure</option>
-        <option value="Animation">Animation</option>
-        <option value ="Biography">Biography</option>
-        <option value ="Comedy">Comedy</option>
-        <option value="Crime">Crime</option>
-        <option value="Documentary">Documentary</option>
-        <option value ="drama">Drama</option>
-        <option value ="Family">Family</option>
-        <option value="Fantasy">Fantasy</option>
-        <option value="History">History</option>
-        <option value ="Horror">Horror</option>
-        <option value ="Music">Music</option>
-        <option value="Musical">Musical</option>
-        <option value="Mystery">Reality-TV</option>
-        <option value ="Romance">Romance</option>
-        <option value ="Sci-Fi">Sci-Fi</option>
-        <option value="Sport">Sport</option>
-        <option value="Thriller">Thriller</option>
-        <option value ="War">War</option>
-        <option value ="Western">Western</option>
-
-
-        <input type="submit" value="Browsing">
-    </select>
-
-</form>
-
-
-
-
-
-
-
-    <!-- include jQuery-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- include our own JS file -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="./Main.js"></script>
+	<!-- include jQuery-->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- include our own JS file -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="./Main.js"></script>
 </body>
 </html>

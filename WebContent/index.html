@@ -27,6 +27,29 @@ tr:nth-child(odd) {
 #heading{
 font-size: 24px;
 }
+form{
+display: inline;
+}
+#page_prev{
+	float:left;
+	margin-left: 30px;
+	font-size: 16px;
+	
+}
+#page_next{
+	float: right;
+	margin-right: 30px;
+	font-size: 16px;
+}
+h6{
+text-align: center;
+}
+#pgsetting{
+	text-align:center;
+}
+#tbox{
+	width:330px;
+}
 
 	
 </style>
@@ -48,29 +71,6 @@ font-size: 24px;
 
 
 <h1>      Movie List    </h1>
-
-<form id="sort_rate" method="post" action="#">
-    <input type="submit" value="sort by rate descend">
-</form>
-
-<form id="sort_title" method="post" action="#">
-    <input type="submit" value="sort by title descend">
-</form>
-
-
-
-
-<form id="number" method="post" action="#">
-    <label><b>Enter number of movie per page Here</b></label>
-    <br>
-    <input type="text" placeholder="Enter number of movie per page Here" name="num">
-
-    <br>
-
-    <input type="submit" value="Go">
-</form>
-
-
 
 
 <div id="page_error_message"></div>
@@ -104,13 +104,32 @@ font-size: 24px;
 </table>
 </div>
 <form id="page_prev" method="post" action="#">
-    <input type="submit" value="Prev">
+    <input type="submit" value="<Prev">
 </form>
 
 <form id="page_next" method="post" action="#">
-    <input type="submit" value="Next">
+    <input type="submit" value="Next>">
 </form>
 
+<br>
+<h6> Page Settings </h6>
+
+<div id="pgsetting">
+<form id="number" method="post" action="#">
+    <!-- <label>Enter number of movies per page to display</label> -->
+    <input id="tbox" type="text" placeholder="Enter number of movies per page to display" name="num">
+    <input type="submit" value="Go">
+</form>
+<br>
+<form id="sort_rate" method="post" action="#">
+    <input type="submit" value="sort by rate descend">
+</form>
+
+<form id="sort_title" method="post" action="#">
+    <input type="submit" value="sort by title descend">
+</form>
+
+</div>
 
 
 
