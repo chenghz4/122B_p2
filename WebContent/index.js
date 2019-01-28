@@ -48,7 +48,7 @@ function handleStarResult(resultData) {
         rowHTML +=
             "<th>" +
             // Add a link to single-star.html with id passed with GET url parameter
-            '<a href="single-movie.html?id=' + resultData[i]['movie_id'] + '&url='+url+'">'
+            '<a href="single-movie.html?id=' + resultData[i]['movie_id'] + '">'
             + resultData[i]["movie_title"] +     // display star_name for the link text
             '</a>' +
             "</th>";
@@ -79,6 +79,17 @@ function handleStarResult(resultData) {
 
 
         rowHTML += "<th>" + resultData[i]["rating"] + "</th>";
+
+
+        rowHTML +=
+            "<th>" +
+            // Add a link to single-star.html with id passed with GET url parameter
+            '<a href="cart.html?id=' + resultData[i]['movie_id'] + '">'
+            +"Add to cart" +     // display star_name for the link text
+            '</a>' +
+            "</th>";
+
+
         rowHTML += "</tr>";
 
         // Append the row created to the table body, which will refresh the page

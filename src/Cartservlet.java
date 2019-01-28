@@ -1,54 +1,59 @@
 import com.google.gson.JsonObject;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
- * This class is declared as LoginServlet in web annotation,
- * which is mapped to the URL pattern /api/login
+ * This IndexServlet is declared in the web annotation below,
+ * which is mapped to the URL pattern /api/index.
  */
 @WebServlet(name = "Cartservlet", urlPatterns = "/api/cart")
 public class Cartservlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    @Resource(name = "jdbc/moviedb")
 
+    /**
+     * handles POST requests to store session information
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        String sessionId = session.getId();
+        Long lastAccessTime = session.getLastAccessedTime();
 
-    private DataSource dataSource;
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-            IOException {
-        String searchtitle = request.getParameter("search");
-        String searchyear = request.getParameter("search_year");
-        String searchdirector = request.getParameter("search_director");
-        String searchstar = request.getParameter("search_star");
-        String genres = request.getParameter("genres");
-        String letters=request.getParameter("letters");
-        PrintWriter out = response.getWriter();
-        JsonObject jsonObject = new JsonObject();
+        JsonObject responseJsonObject = new JsonObject();
+        responseJsonObject.addProperty("sessionID", sessionId);
+        responseJsonObject.addProperty("lastAccessTime", new Date(lastAccessTime).toString());
 
-        jsonObject.addProperty("title", searchtitle);
-        jsonObject.addProperty("year", searchyear);
-        jsonObject.addProperty("director", searchdirector);
-        jsonObject.addProperty("star", searchstar);
-        jsonObject.addProperty("genres", genres);
-        jsonObject.addProperty("letters", letters);
+        // write all the data into the jsonObject
+        response.getWriter().write(responseJsonObject.toString());
+    }
 
-        out.write(jsonObject.toString());
-        out.close();
+    /**
+     * handles GET requests to add and show the item list information
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String item = request.getParameter("item");
+        System.out.println(item);
+        HttpSession session = request.getSession();
 
+        // get the previous items in a ArrayList
+        ArrayList<String> previousItems = (ArrayList<String>) session.getAttribute("previousItems");
+        if (previousItems == null) {
+            previousItems = new ArrayList<>();
+            previousItems.add(item);
+            session.setAttribute("previousItems", previousItems);
+        } else {
+            // prevent corrupted states through sharing under multi-threads
+            // will only be executed by one thread at a time
+            synchronized (previousItems) {
+                previousItems.add(item);
+            }
+        }
 
-
+        response.getWriter().write(String.join(",", previousItems));
     }
 }

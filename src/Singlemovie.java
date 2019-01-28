@@ -79,6 +79,7 @@ public class Singlemovie extends HttpServlet {
             while (rs.next()) {
 
                 String movie_title = rs.getString("title");
+                String movie_id=rs.getString("id");
                 String movie_year = rs.getString("year");
                 String movie_director = rs.getString("director");
                 String rate = rs.getString("rating");
@@ -95,6 +96,7 @@ public class Singlemovie extends HttpServlet {
                 jsonObject.addProperty("list_s", star_name);
                 jsonObject.addProperty("s.id", star_id);
                 jsonObject.addProperty("rating",rate);
+                jsonObject.addProperty("movie_id",movie_id);
                 jsonArray.add(jsonObject);
             }
 

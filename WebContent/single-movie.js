@@ -88,6 +88,13 @@ function handleResult(resultData) {
 
         rowHTML +="</th>";
 
+        rowHTML +=
+            "<th>" +
+            // Add a link to single-star.html with id passed with GET url parameter
+            '<a href="cart.html?id=' + resultData[i]['movie_id'] + '">'
+            +"Add to cart" +     // display star_name for the link text
+            '</a>' +
+            "</th>";
 
         rowHTML += "</tr>";
 

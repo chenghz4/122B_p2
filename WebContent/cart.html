@@ -1,10 +1,24 @@
+<!-- This page will be seen if you logged in -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Shopping Cart</title>
 </head>
 <body>
+Shopping Cart
+<p id="sessionID"></p>
+<p id="lastAccessTime"></p>
+<form ACTION="#" id="cart" METHOD="get">
+    <label>Item Purchased</label>
+    <br>
+    <input type="text" required="required" name="item">
+    <input type="submit" VALUE="add">
+</form>
+<div id="item_list"></div>
 
+<!-- include your own JS file -->
+<script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
+<script type='text/javascript' src='cart.js'></script>
 </body>
 </html>
