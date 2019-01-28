@@ -38,6 +38,7 @@ function handleStarResult(resultData) {
     // Populate the star table
     // Find the empty table body by id "star_table_body"
     let starTableBodyElement = jQuery("#star_table_body");
+    let url = window.location.href;
 
     for (let i = 0; i <resultData.length; i++) {
 
@@ -47,7 +48,7 @@ function handleStarResult(resultData) {
         rowHTML +=
             "<th>" +
             // Add a link to single-star.html with id passed with GET url parameter
-            '<a href="single-movie.html?id=' + resultData[i]['movie_id'] + '">'
+            '<a href="single-movie.html?id=' + resultData[i]['movie_id'] + '&url='+url+'">'
             + resultData[i]["movie_title"] +     // display star_name for the link text
             '</a>' +
             "</th>";

@@ -120,8 +120,29 @@ function handleResult(resultData) {
     goback +=
         "<th style='color: crimson'>" +
         // Add a link to single-star.html with id passed with GET url parameter
-        '<a href="index.html" >'
-        + "Go Back to Movie List" +     // display star_name for the link text
+        '<a href= "javascript:history.go(-1);">'
+        + "Go Back" +     // display star_name for the link text
+        '</a>' +
+        "</th>";
+    goback += "</tr>";
+    goback +="<tr>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +="<th>";
+    goback +="</th>";
+    goback +=
+        "<th style='color: crimson'>" +
+        // Add a link to single-star.html with id passed with GET url parameter
+        '<a href= "Main.html">'
+        + "Go Back to search page" +     // display star_name for the link text
         '</a>' +
         "</th>";
     goback += "</tr>";
