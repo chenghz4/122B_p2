@@ -43,14 +43,12 @@ public class Cartservlet extends HttpServlet {
             ResultSet rs = statement.executeQuery();
             String movie_id = "";
             String movie_title ="";
-            String movie_year = "";
-            String movie_director = "";
+
 
             if(rs.next()){
                 movie_id = rs.getString("id");
                 movie_title = rs.getString("title");
-                movie_year = rs.getString("year");
-                movie_director = rs.getString("director");
+
 
 
             }
@@ -62,6 +60,7 @@ public class Cartservlet extends HttpServlet {
             if (previousmovies == null) {
                 previousmovies = new ArrayList<>();
                 previousmovies.add(movie_id);
+                previousmovies.add(movie_title);
                 session.setAttribute("previousmovies", previousmovies);
             }
             else {
@@ -72,6 +71,7 @@ public class Cartservlet extends HttpServlet {
                     // will only be executed by one thread at a time
                     synchronized (previousmovies) {
                         previousmovies.add(movie_id);
+                        previousmovies.add(movie_title);
                     }
 
             }

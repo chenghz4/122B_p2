@@ -21,12 +21,14 @@ function getParameterByName(target) {
 function handleSessionData(resultDataString) {
 
     const resultArray = resultDataString.split(",");
+
+    console.log(resultArray.length);
     console.log(resultArray);
 
     let res = "<ul>";
-    for(let i = 0; i < resultArray.length; i++) {
+    for(let i = 0; i < resultArray.length/2; i++) {
         // each item will be in a bullet point
-        res += "<li>" + resultArray[i];
+        res += "<li>" + resultArray[2*i]+resultArray[2*i+1];
         res +="<input type='text' placeholder='Enter number of movie here' name="+i+">";
 
 
