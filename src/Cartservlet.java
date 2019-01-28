@@ -30,6 +30,7 @@ public class Cartservlet extends HttpServlet {
         HttpSession session = request.getSession();
         String movieid=request.getParameter("id");
         PrintWriter out = response.getWriter();
+        int flag=0;
 
         try {
             // Get a connection from dataSource
@@ -57,20 +58,28 @@ public class Cartservlet extends HttpServlet {
 
 
             ArrayList<String> previousmovies = (ArrayList<String>) session.getAttribute("previousmovies");
+
             if (previousmovies == null) {
                 previousmovies = new ArrayList<>();
-                previousmovies.add(movie_title);
+                previousmovies.add(movie_id);
                 session.setAttribute("previousmovies", previousmovies);
-            } else {
-                // prevent corrupted states through sharing under multi-threads
-                // will only be executed by one thread at a time
-                synchronized (previousmovies) {
-                    previousmovies.add(movie_title);
+            }
+            else {
+                for(int i=0;i<previousmovies.size();i++){
+                    if(previousmovies.get(i)==movie_id)    flag=1;
                 }
+                    // prevent corrupted states through sharing under multi-threads
+                    // will only be executed by one thread at a time
+                    synchronized (previousmovies) {
+                        previousmovies.add(movie_id);
+                    }
+
             }
 
-            out.write(String.join(",", previousmovies));
 
+            if(flag==0) {
+                out.write(String.join(",", previousmovies));
+            }
 
 
 

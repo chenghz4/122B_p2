@@ -26,8 +26,13 @@ function handleSessionData(resultDataString) {
     let res = "<ul>";
     for(let i = 0; i < resultArray.length; i++) {
         // each item will be in a bullet point
-        res += "<li>" + resultArray[i] + "</li>";
+        res += "<li>" + resultArray[i];
+        res +="<input type='text' placeholder='Enter number of movie here' name="+i+">";
+
+
+        res +="</li>";
     }
+    res +="<input type='submit' value='Go'>" ;
     res += "</ul>";
 
     // clear the old array and show the new array in the frontend

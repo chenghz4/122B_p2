@@ -8,19 +8,22 @@
 <body>
 Shopping Cart
 
-<p id="movie_id"></p>
-<p id="movie_title"></p>
-<p id="movie_year"></p>
-<p id="movie_director"></p>
-<div id="movie_list"></div>
+<form action="#" id="movie_list" METHOD="get"></form>
+
+
+
 <form ACTION="#" id="cart" METHOD="get">
     <label>Item Purchased</label>
-    <br>
     <input type="text" required="required" name="item">
     <input type="submit" VALUE="add">
 </form>
 <div id="item_list"></div>
 
+
+
+
+<a href="javascript:history.go(-1);">Go back</a>
+<a href="Main.html">Go back to search page</a>
 <!-- include your own JS file -->
 <script src='https://code.jquery.com/jquery-3.1.0.min.js'></script>
 <script type='text/javascript' src='cart.js'></script>
