@@ -31,7 +31,6 @@ public class Cartservlet extends HttpServlet {
         String movieid=request.getParameter("id");
         PrintWriter out = response.getWriter();
         int flag=0;
-
         try {
             // Get a connection from dataSource
             Connection dbcon = dataSource.getConnection();
@@ -48,9 +47,6 @@ public class Cartservlet extends HttpServlet {
             if(rs.next()){
                 movie_id = rs.getString("id");
                 movie_title = rs.getString("title");
-
-
-
             }
 
 
@@ -59,20 +55,24 @@ public class Cartservlet extends HttpServlet {
 
             if (previousmovies == null) {
                 previousmovies = new ArrayList<>();
-                previousmovies.add(movie_id);
-                previousmovies.add(movie_title);
+                if(!movie_id.equals("")) {
+                    previousmovies.add(movie_id);
+                }
+
                 session.setAttribute("previousmovies", previousmovies);
             }
             else {
                 for(int i=0;i<previousmovies.size();i++){
-                    if(previousmovies.get(i)==movie_id)    flag=1;
+                    String str=previousmovies.get(i);
+                    if(str==movie_id)    flag=1;
                 }
-                    // prevent corrupted states through sharing under multi-threads
-                    // will only be executed by one thread at a time
+                if(!movie_id.equals("")) {
                     synchronized (previousmovies) {
+
                         previousmovies.add(movie_id);
-                        previousmovies.add(movie_title);
+                        //previousmovies.add(movie_title);
                     }
+                }
 
             }
 

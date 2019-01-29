@@ -26,9 +26,9 @@ function handleSessionData(resultDataString) {
     console.log(resultArray);
 
     let res = "<ul>";
-    for(let i = 0; i < resultArray.length/2; i++) {
+    for(let i = 0; i < resultArray.length; i++) {
         // each item will be in a bullet point
-        res += "<li>" + resultArray[2*i]+resultArray[2*i+1];
+        res += "<li>" + resultArray[i];//even number is id odd is title
         res +="<input type='text' placeholder='Enter number of movie here' name="+i+">";
 
 
@@ -83,7 +83,7 @@ function handleCartInfo(cartEvent) {
     cartEvent.preventDefault();
 
     $.get(
-        "api/index",
+        "api/cart",
         // Serialize the cart form to the data sent by POST request
         $("#cart").serialize(),
         (resultDataString) => handleCartArray(resultDataString)
