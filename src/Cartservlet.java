@@ -26,9 +26,14 @@ public class Cartservlet extends HttpServlet {
     @Resource(name = "jdbc/moviedb")
     private DataSource dataSource;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String movieid=request.getParameter("id");
+
+
+
+
+
         PrintWriter out = response.getWriter();
         int flag=0;
         try {
@@ -49,7 +54,6 @@ public class Cartservlet extends HttpServlet {
             }
 
             ArrayList<String> previousmovies = (ArrayList<String>) session.getAttribute("previousmovies");
-
             if (previousmovies == null) {
                 previousmovies = new ArrayList<>();
                 previousmovies.add("Empty");
@@ -57,12 +61,8 @@ public class Cartservlet extends HttpServlet {
                     previousmovies.add(movie_title);
 
                 }
-
-                out.write(String.join(",", previousmovies));
                 session.setAttribute("previousmovies", previousmovies);
             }
-
-
 
             else {
                 for(int i=0;i<previousmovies.size();i++){
@@ -76,13 +76,37 @@ public class Cartservlet extends HttpServlet {
                         previousmovies.add(movie_title);
                     }
                 }
+                session.setAttribute("previousmovies", previousmovies);
+            }
+
+            int n=previousmovies.size();// n-1
+            if(n>1){
+                ArrayList List = new ArrayList();
+                for(int i=1;i<n;i++) {
+                    String string=String.valueOf(i);
+                    List.add(request.getParameter(string));
+                }
+                for(int i=0; i<List.size();i++){
+                    System.out.print(List.get(i));
+                }
+                ArrayList<String> num = (ArrayList<String>) session.getAttribute("num");
+                if (num == null) {
+                    num = new ArrayList<>();
+                    session.setAttribute("num", num);
+                }
 
 
-                out.write(String.join(",", previousmovies));
+
             }
 
 
 
+
+
+
+
+
+            out.write(String.join(",", previousmovies));
             rs.close();
             statement.close();
             dbcon.close();
@@ -103,11 +127,49 @@ public class Cartservlet extends HttpServlet {
     /**
      * handles GET requests to add and show the item list information
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         HttpSession session = request.getSession();
 
-        // get the previous items in a ArrayList
+
+        PrintWriter out = response.getWriter();
+
+        try {
+            // Get a connection from dataSource
+            Connection dbcon = dataSource.getConnection();
+            String query ="";
+            PreparedStatement statement = dbcon.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+
+            while(rs.next())
+            {
+
+            }
+
+
+
+
+
+
+
+
+
+            rs.close();
+            statement.close();
+            dbcon.close();
+        } catch (Exception e) {
+
+            // write error message JSON object to output
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("errorMessage", e.getMessage());
+            out.write(jsonObject.toString());
+
+            // set reponse status to 500 (Internal Server Error)
+            response.setStatus(500);
+
+        }
+        out.close();
 
     }
 }

@@ -32,11 +32,9 @@ function handleSessionData(resultDataString) {
             // each item will be in a bullet point
             res += "<li>" + resultArray[i];//even number is id odd is title
             res += "<input type='text' placeholder='Enter number of movie here' name=" + i + ">";
-
-
             res += "</li>";
         }
-        res += "<input type='submit' value='Go'>";
+        res += "<input type='submit' value='Updated'>";
         res += "</ul>";
 
         // clear the old array and show the new array in the frontend
@@ -62,6 +60,29 @@ function handleSessionData(resultDataString) {
  * @param resultDataString jsonObject, needs to be parsed to html
  */
 
+function handleCartInfo(cartEvent) {
+    console.log("submit cart form");
+    /**
+     * When users click the submit button, the browser will not direct
+     * users to the url defined in HTML form. Instead, it will call this
+     * event handler when the event is triggered.
+     */
+    cartEvent.preventDefault();
+
+    $.get(
+        "api/cart",
+        // Serialize the cart form to the data sent by POST request
+        $("#movie_list").serialize(),
+        (resultDataString) => handleSessionData(resultDataString)
+);
+}
+
+
+
+
+
+
+
 
 
 
@@ -69,9 +90,12 @@ let id=getParameterByName("id");
 
 
 $.ajax({
-    type: "POST",
+    type: "GET",
     url: "api/cart?id="+id,
     success: (resultDataString) => handleSessionData(resultDataString)
 });
 
+
+
+$("#movie_list").submit((event) => handleCartInfo(event));
 // Bind the submit action of the form to a event handler function
