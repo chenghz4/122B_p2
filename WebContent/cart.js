@@ -26,11 +26,13 @@ function handleSessionData(resultDataString) {
     console.log(resultArray);
     let n=resultArray.length;
 
-    if(n>1) {
+    if(n>2) {
         let res = "<ul>";
-        for (let i = 1; i < n; i++) {
+        for (let i = 2; i < n; i+=2) {
             // each item will be in a bullet point
-            res += "<li>" + resultArray[i];//even number is id odd is title
+            res += "<li>" + resultArray[i]+ "</li>";//even number is id odd is title
+            res +="<li>"+" The quantity of Movie :  "+resultArray[i+1]+"</li>";
+            res +="<li>";
             res += "<input type='text' placeholder='Enter number of movie here' name=" + i + ">";
             res += "</li>";
         }

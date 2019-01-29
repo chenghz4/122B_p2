@@ -53,12 +53,16 @@ public class Cartservlet extends HttpServlet {
                 movie_title = rs.getString("title");
             }
 
-            ArrayList<String> previousmovies = (ArrayList<String>) session.getAttribute("previousmovies");
+            ArrayList<Items> previousmovies = (ArrayList<Items>) session.getAttribute("previousmovies");
             if (previousmovies == null) {
                 previousmovies = new ArrayList<>();
-                previousmovies.add("Empty");
+                Items item=new Items("Shopping Cart is Empty","1");
+
+                previousmovies.add(item);
+
                 if(!movie_title.equals("")) {
-                    previousmovies.add(movie_title);
+                    Items item1=new Items(movie_title,"1");
+                    previousmovies.add(item1);
 
                 }
                 session.setAttribute("previousmovies", previousmovies);
@@ -66,52 +70,44 @@ public class Cartservlet extends HttpServlet {
 
             else {
                 for(int i=0;i<previousmovies.size();i++){
-                    String str=previousmovies.get(i);
+                    String str=previousmovies.get(i).getTitle();
                     if(str.equals(movie_title))    flag=1;
                 }
+
+
+
+
                 if(!movie_title.equals("")&&flag==0) {
                     synchronized (previousmovies) {
 
                         //previousmovies.add(movie_id);
-                        previousmovies.add(movie_title);
+                        Items item1=new Items(movie_title,"1");
+                        previousmovies.add(item1);
+
                     }
                 }
                 session.setAttribute("previousmovies", previousmovies);
             }
 
-            int n=previousmovies.size();// n-1
-            if(n>1){
-                ArrayList List = new ArrayList();
-                for(int i=1;i<n;i++) {
-                    String string=String.valueOf(i);
-                    String temp="1";
-                    if(request.getParameter(string)!=null)  temp=request.getParameter(string);
 
-                    List.add(temp);
-                }
-                for(int i=0; i<List.size();i++){
-                    System.out.print(List.get(i));
-                }
-                ArrayList<String> num = (ArrayList<String>) session.getAttribute("num");
-                if (num == null) {
-                    num = new ArrayList<>();
-                    session.setAttribute("num", num);
-                }
 
-                for(int i=0;i<List.size();i++){
-                   num.add(List.get(i).toString());
+            int n=previousmovies.size();
+            for(int i=0;i<n;i++) {
+                if(i==(n-1)) {
+                    out.write(previousmovies.get(i).getTitle());
+                    out.write(",");
+                    out.write(previousmovies.get(i).getNumber());
                 }
+                else{
+                    out.write(previousmovies.get(i).getTitle());
+                    out.write(",");
+                    out.write(previousmovies.get(i).getNumber());
+                    out.write(",");
 
+
+
+                }
             }
-
-
-
-
-
-
-
-
-            out.write(String.join(",", previousmovies));
             rs.close();
             statement.close();
             dbcon.close();
