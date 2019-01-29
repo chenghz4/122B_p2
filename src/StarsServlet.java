@@ -65,9 +65,9 @@ public class StarsServlet extends HttpServlet {
         String year = request.getParameter("year");
         String year_fix;
 
-        //if(year.equals(""))
+        if(year.equals(""))
             year_fix="%"+year+"%";
-        //else year_fix=year;
+        else year_fix=year;
 
         String director = request.getParameter("director");
         String director_fix="%"+director+"%";
