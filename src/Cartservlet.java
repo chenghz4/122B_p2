@@ -84,7 +84,10 @@ public class Cartservlet extends HttpServlet {
                 ArrayList List = new ArrayList();
                 for(int i=1;i<n;i++) {
                     String string=String.valueOf(i);
-                    List.add(request.getParameter(string));
+                    String temp="1";
+                    if(request.getParameter(string)!=null)  temp=request.getParameter(string);
+
+                    List.add(temp);
                 }
                 for(int i=0; i<List.size();i++){
                     System.out.print(List.get(i));
@@ -95,7 +98,9 @@ public class Cartservlet extends HttpServlet {
                     session.setAttribute("num", num);
                 }
 
-
+                for(int i=0;i<List.size();i++){
+                   num.add(List.get(i).toString());
+                }
 
             }
 
