@@ -43,30 +43,31 @@ public class Cartservlet extends HttpServlet {
             String movie_id = "";
             String movie_title ="";
 
-
             if(rs.next()){
                 movie_id = rs.getString("id");
                 movie_title = rs.getString("title");
             }
 
-
-
             ArrayList<String> previousmovies = (ArrayList<String>) session.getAttribute("previousmovies");
 
             if (previousmovies == null) {
-                previousmovies = new ArrayList<>();
                 if(!movie_title.equals("")) {
+                    previousmovies = new ArrayList<>();
                     previousmovies.add(movie_title);
-                }
 
+                }
+                out.write(String.join(",", previousmovies));
                 session.setAttribute("previousmovies", previousmovies);
             }
+
+
+
             else {
                 for(int i=0;i<previousmovies.size();i++){
                     String str=previousmovies.get(i);
-                    if(str==movie_title)    flag=1;
+                    if(str.equals(movie_title))    flag=1;
                 }
-                if(!movie_title.equals("")) {
+                if(!movie_title.equals("")&&flag==0) {
                     synchronized (previousmovies) {
 
                         //previousmovies.add(movie_id);
@@ -74,23 +75,10 @@ public class Cartservlet extends HttpServlet {
                     }
                 }
 
-            }
 
-
-            if(flag==0) {
                 out.write(String.join(",", previousmovies));
             }
 
-
-
-           // JsonObject responseJsonObject = new JsonObject();
-            //responseJsonObject.addProperty("movie_id", movie_id);
-            //responseJsonObject.addProperty("movie_title", movie_title);
-            //responseJsonObject.addProperty("movie_year", movie_year);
-            //responseJsonObject.addProperty("movie_director", movie_director);
-
-            // write all the data into the jsonObject
-            //response.getWriter().write(responseJsonObject.toString());
 
 
             rs.close();
