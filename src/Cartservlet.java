@@ -55,8 +55,8 @@ public class Cartservlet extends HttpServlet {
 
             if (previousmovies == null) {
                 previousmovies = new ArrayList<>();
-                if(!movie_id.equals("")) {
-                    previousmovies.add(movie_id);
+                if(!movie_title.equals("")) {
+                    previousmovies.add(movie_title);
                 }
 
                 session.setAttribute("previousmovies", previousmovies);
@@ -64,13 +64,13 @@ public class Cartservlet extends HttpServlet {
             else {
                 for(int i=0;i<previousmovies.size();i++){
                     String str=previousmovies.get(i);
-                    if(str==movie_id)    flag=1;
+                    if(str==movie_title)    flag=1;
                 }
-                if(!movie_id.equals("")) {
+                if(!movie_title.equals("")) {
                     synchronized (previousmovies) {
 
-                        previousmovies.add(movie_id);
-                        //previousmovies.add(movie_title);
+                        //previousmovies.add(movie_id);
+                        previousmovies.add(movie_title);
                     }
                 }
 
