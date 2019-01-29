@@ -51,11 +51,13 @@ public class Cartservlet extends HttpServlet {
             ArrayList<String> previousmovies = (ArrayList<String>) session.getAttribute("previousmovies");
 
             if (previousmovies == null) {
+                previousmovies = new ArrayList<>();
+                previousmovies.add("Empty");
                 if(!movie_title.equals("")) {
-                    previousmovies = new ArrayList<>();
                     previousmovies.add(movie_title);
 
                 }
+
                 out.write(String.join(",", previousmovies));
                 session.setAttribute("previousmovies", previousmovies);
             }
@@ -102,24 +104,10 @@ public class Cartservlet extends HttpServlet {
      * handles GET requests to add and show the item list information
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String item = request.getParameter("item");
-        System.out.println(item);
+
         HttpSession session = request.getSession();
 
         // get the previous items in a ArrayList
-        ArrayList<String> previousItems = (ArrayList<String>) session.getAttribute("previousItems");
-        if (previousItems == null) {
-            previousItems = new ArrayList<>();
-            previousItems.add(item);
-            session.setAttribute("previousItems", previousItems);
-        } else {
-            // prevent corrupted states through sharing under multi-threads
-            // will only be executed by one thread at a time
-            synchronized (previousItems) {
-                previousItems.add(item);
-            }
-        }
 
-        response.getWriter().write(String.join(",", previousItems));
     }
 }
