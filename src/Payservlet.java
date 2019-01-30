@@ -100,7 +100,7 @@ public class Payservlet extends HttpServlet {
 
 //
             String query4 = "select count(id) " +
-                    "from creditcards ";
+                    "from sales ";
             Statement statement4 = dbcon.createStatement();
             ResultSet rs4 = statement4.executeQuery(query4);
             String offset="";
