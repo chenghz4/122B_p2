@@ -52,12 +52,12 @@ public class Cartservlet extends HttpServlet {
 
             if (previousmovies == null) {
                 previousmovies = new ArrayList<>();
-                Items item=new Items("Shopping Cart is Empty","1");
+                Items item=new Items("Shopping Cart is Empty","1","");
 
                 previousmovies.add(item);
 
                 if(!movie_title.equals("")) {
-                    Items item1=new Items(movie_title,"1");
+                    Items item1=new Items(movie_title,"1",movie_id);
                     previousmovies.add(item1);
 
                 }
@@ -105,8 +105,7 @@ public class Cartservlet extends HttpServlet {
                 if(!movie_title.equals("")&&flag==0) {
                     synchronized (previousmovies) {
 
-                        //previousmovies.add(movie_id);
-                        Items item1=new Items(movie_title,"1");
+                        Items item1=new Items(movie_title,"1",movie_id);
                         previousmovies.add(item1);
 
                     }
@@ -149,6 +148,51 @@ public class Cartservlet extends HttpServlet {
 
         }
         out.close();
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        HttpSession session = request.getSession();
+
+
+        PrintWriter out = response.getWriter();
+
+        try {
+            // Get a connection from dataSource
+            Connection dbcon = dataSource.getConnection();
+            String query ="";
+            PreparedStatement statement = dbcon.prepareStatement(query);
+            ResultSet rs = statement.executeQuery();
+
+
+            while(rs.next())
+            {
+
+            }
+
+
+
+
+
+
+
+
+
+            rs.close();
+            statement.close();
+            dbcon.close();
+        } catch (Exception e) {
+
+            // write error message JSON object to output
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("errorMessage", e.getMessage());
+            out.write(jsonObject.toString());
+
+            // set reponse status to 500 (Internal Server Error)
+            response.setStatus(500);
+
+        }
+        out.close();
+
     }
 
 }

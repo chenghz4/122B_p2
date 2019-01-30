@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,8 +14,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.sql.Date;
+import java.util.Calendar;
 
 /**
  * This class is declared as LoginServlet in web annotation,
@@ -31,8 +35,9 @@ public class Payservlet extends HttpServlet {
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
+        HttpSession session = request.getSession();
         String cardnumber = request.getParameter("cardnumber");
         String lastname = request.getParameter("lastname");
         String firstname = request.getParameter("firstname");
@@ -56,39 +61,88 @@ public class Payservlet extends HttpServlet {
             statement1.setString(3, lastname);
             statement1.setString(4, expiration);
             ResultSet rs1 = statement1.executeQuery();
-
             if(rs1.next()){
                 check = rs1.getString("count(id)");
             }
-
             rs1.close();
             statement1.close();
+//
 
 
-
-            String query = "select count(id)  " +
+            String query = "select count(id) " +
                     "from creditcards " +
                     "where id=?  " ;
             PreparedStatement statement = dbcon.prepareStatement(query);
             statement.setString(1, cardnumber);
             ResultSet rs = statement.executeQuery();
-
-
-
             if(rs.next()){
                 card = rs.getString("count(id)");
             }
-
-
             rs.close();
             statement.close();
-            dbcon.close();
 
-            /**
-             * This example only allows username/password to be anteater/123456
-             * In real world projects, you should talk to the database to verify username/password
-             */
-            if (check.equals("1")) {
+//
+            User user=(User) session.getAttribute("user");
+            String usern=user.getUsername();
+            String query2 ="select id " +
+                    "from customers " +
+                    "where email=? ";
+
+            PreparedStatement statement2 = dbcon.prepareStatement(query2);
+            statement2.setString(1, usern);
+            ResultSet rs2 = statement2.executeQuery();
+            String customerid="";
+            if(rs2.next()){
+                 customerid= rs2.getString("id");
+            }
+            rs2.close();
+            statement2.close();
+
+//
+            String query4 = "select count(id) " +
+                    "from creditcards ";
+            Statement statement4 = dbcon.createStatement();
+            ResultSet rs4 = statement4.executeQuery(query4);
+            String offset="";
+            if(rs4.next()){
+                offset = rs4.getString("count(id)");
+            }
+            rs4.close();
+            statement4.close();
+//
+
+
+
+
+            if (!check.equals("0")) {
+                ArrayList<Items> data = (ArrayList<Items>) session.getAttribute("previousmovies");
+                int n=data.size();
+                String movieid="";
+
+
+
+                if(n>1&&!customerid.equals("")) {
+
+                    for(int i=1;i<n;i++) {
+                        Calendar cal=Calendar.getInstance();
+
+                        int a=Integer.parseInt(offset)+5+i;
+                        String query3 = "INSERT INTO sales VALUES(?,?,?, ?);";
+                        movieid=data.get(i).getId();
+                        if(!movieid.equals("")) {
+                            Date date=new Date(cal.get(Calendar.YEAR)-2000, cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+                            PreparedStatement statement3 = dbcon.prepareStatement(query3);
+                            statement3.setInt(1, a );
+                            statement3.setInt(2, Integer.parseInt(customerid));
+                            statement3.setString(3, movieid);
+                            statement3.setDate(4, date);
+
+
+                            statement3.execute();
+                            statement3.close();
+                        }
+                    }
+                }
 
 
 
@@ -103,7 +157,7 @@ public class Payservlet extends HttpServlet {
                 JsonObject responseJsonObject = new JsonObject();
                 responseJsonObject.addProperty("status", "fail");
 
-                if (!card.equals("1")) {
+                if (card.equals("0")) {
                     responseJsonObject.addProperty("message", "cardnumber " + cardnumber + " doesn't exist");
                 } else {
                     responseJsonObject.addProperty("message", "card information doesnt match");
@@ -112,6 +166,7 @@ public class Payservlet extends HttpServlet {
 
                 out.write(responseJsonObject.toString());
             }
+            dbcon.close();
         }
         catch (Exception e){
 
