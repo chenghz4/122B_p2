@@ -134,7 +134,7 @@ public class Payservlet extends HttpServlet {
                         if(!movieid.equals("")&&!movienumber.equals("")) {
                             int size=Integer.parseInt(movienumber);
                             for(int j=0;j<size;j++) {
-                                int a=Integer.parseInt(offset)+5+i+j;
+                                int a=Integer.parseInt(offset)+5+i*size+j;
                                 data.get(i).assignsaleid(a+"",j);
                                 Date date = new Date(cal.get(Calendar.YEAR) - 1900, cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
                                 PreparedStatement statement3 = dbcon.prepareStatement(query3);

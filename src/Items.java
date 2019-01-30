@@ -5,7 +5,7 @@ public class Items {
     private  String title;
     private  String number;
     private  String id;
-    private ArrayList<String> saleid;
+    public ArrayList<String> saleid;
 
 
     public Items(String title, String number,String id) {
