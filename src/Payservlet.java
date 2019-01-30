@@ -104,7 +104,7 @@ public class Payservlet extends HttpServlet {
                 responseJsonObject.addProperty("status", "fail");
 
                 if (!card.equals("1")) {
-                    responseJsonObject.addProperty("message", "user " + cardnumber + " doesn't exist");
+                    responseJsonObject.addProperty("message", "cardnumber " + cardnumber + " doesn't exist");
                 } else {
                     responseJsonObject.addProperty("message", "card information doesnt match");
                 }
