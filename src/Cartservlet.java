@@ -72,7 +72,7 @@ public class Cartservlet extends HttpServlet {
                     String str1=previousmovies.get(i).getNumber();
                     if(str1.equals("0")) flag=1;
                 }
-//
+
                 if(n>1) {
                     String q[];
                     q=new String[n-1];
@@ -93,15 +93,25 @@ public class Cartservlet extends HttpServlet {
                         if(q[i-1]!=""&&q[i-1]!=null&&Integer.parseInt(q[i-1])>=0&&flag1)
                             previousmovies.get(i).assignnumber(q[i-1]);
                     }
+//
+                    int counter=1;
+                    boolean flag2=true;
+                    while(flag2){
+                        int size1=previousmovies.size();
+                        if(previousmovies.get(counter).getNumber().equals("0")){
+                            previousmovies.remove(counter);
+                        }
+                        else counter++;
 
 
-                    for(int i=1;i<n;i++){
-                        if(previousmovies.get(i).getNumber().equals("0")) previousmovies.remove(i);
+
+                        if(counter==size1) flag2=false;
 
 
                     }
-                }
 //
+                }
+
                 if(!movie_title.equals("")&&flag==0) {
                     synchronized (previousmovies) {
 
