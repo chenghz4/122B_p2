@@ -117,7 +117,7 @@ public class Payservlet extends HttpServlet {
             if (!check.equals("0")) {
                 ArrayList<Items> data = (ArrayList<Items>) session.getAttribute("previousmovies");
                 int n=data.size();
-                String movieid="";
+
 
 
 
@@ -126,20 +126,26 @@ public class Payservlet extends HttpServlet {
                     for(int i=1;i<n;i++) {
                         Calendar cal=Calendar.getInstance();
 
-                        int a=Integer.parseInt(offset)+5+i;
+
                         String query3 = "INSERT INTO sales VALUES(?,?,?, ?);";
+                        String movieid="";
                         movieid=data.get(i).getId();
-                        if(!movieid.equals("")) {
-                            Date date=new Date(cal.get(Calendar.YEAR)-2000, cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
-                            PreparedStatement statement3 = dbcon.prepareStatement(query3);
-                            statement3.setInt(1, a );
-                            statement3.setInt(2, Integer.parseInt(customerid));
-                            statement3.setString(3, movieid);
-                            statement3.setDate(4, date);
+                        String movienumber=data.get(i).getNumber();
+                        if(!movieid.equals("")&&!movienumber.equals("")) {
+                            int size=Integer.parseInt(movienumber);
+                            for(int j=0;j<size;j++) {
+                                int a=Integer.parseInt(offset)+5+i+j;
+                                Date date = new Date(cal.get(Calendar.YEAR) - 1900, cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+                                PreparedStatement statement3 = dbcon.prepareStatement(query3);
+                                statement3.setInt(1, a);
+                                statement3.setInt(2, Integer.parseInt(customerid));
+                                statement3.setString(3, movieid);
+                                statement3.setDate(4, date);
 
 
-                            statement3.execute();
-                            statement3.close();
+                                statement3.execute();
+                                statement3.close();
+                            }
                         }
                     }
                 }
