@@ -32,7 +32,7 @@ public class StarsServlet extends HttpServlet {
         String page_p="";
         String page_n=(page_global+1)+"";
 
-        if(page_global>0)  page_p=(page_global-1)+"";
+        if(page_global>1)  page_p=(page_global-1)+"";
         else  page_p=page_global+"";
         String sort_r="a.rating desc";
         String sort_t="a.title desc";

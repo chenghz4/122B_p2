@@ -8,6 +8,18 @@
  *      2. Populate the data to correct html elements.
  */
 
+let title = getParameterByName('id');
+let year= getParameterByName('year');
+let director= getParameterByName('director');
+let star= getParameterByName('star');
+let page=getParameterByName('page');
+let number=getParameterByName('number');
+let sort=getParameterByName('sort');
+let genres=getParameterByName('genres');
+let letters =getParameterByName('letters');
+let number1=parseInt(number,10);
+let page1=parseInt(page,10);
+let offset=(page1-1)*number1.toString();
 
 function getParameterByName(target) {
     // Get request URL
@@ -32,19 +44,18 @@ function getParameterByName(target) {
  * @param resultData jsonObject
  */
 function handleStarResult(resultData) {
-    console.log(year);
-    console.log(genres);
-    console.log(title);
+    console.log(offset);
     // Populate the star table
     // Find the empty table body by id "star_table_body"
     let starTableBodyElement = jQuery("#star_table_body");
     let url = window.location.href;
 
     for (let i = 0; i <resultData.length; i++) {
-
+        console.log(i+1+offset);
+        let a=(i+1+offset);
         let rowHTML = "";
         rowHTML += "<tr>";
-        rowHTML += "<th>" + (i+1) + "</th>";
+        rowHTML += "<th>" + a + "</th>";
         rowHTML +=
             "<th>" +
             // Add a link to single-star.html with id passed with GET url parameter
@@ -133,15 +144,6 @@ function handleStarResult(resultData) {
 
 }
 
-let title = getParameterByName('id');
-let year= getParameterByName('year');
-let director= getParameterByName('director');
-let star= getParameterByName('star');
-let page=getParameterByName('page');
-let number=getParameterByName('number');
-let sort=getParameterByName('sort');
-let genres=getParameterByName('genres');
-let letters =getParameterByName('letters')
 
 
 
