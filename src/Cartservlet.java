@@ -83,9 +83,15 @@ public class Cartservlet extends HttpServlet {
                         q[i/2-1]=request.getParameter(string);
                     }
                     for(int i=1;i<n;i++){
-                        if(q[i-1]!=""&&q[i-1]!=null) previousmovies.get(i).assignnumber(q[i-1]);
-
-
+                        boolean flag1;
+                        try {
+                            Integer.parseInt(q[i-1]);
+                            flag1=true;
+                        } catch (NumberFormatException e) {
+                            flag1= false;
+                        }
+                        if(q[i-1]!=""&&q[i-1]!=null&&Integer.parseInt(q[i-1])>=0&&flag1)
+                            previousmovies.get(i).assignnumber(q[i-1]);
                     }
 
 
@@ -145,52 +151,4 @@ public class Cartservlet extends HttpServlet {
         out.close();
     }
 
-    /**
-     * handles GET requests to add and show the item list information
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        HttpSession session = request.getSession();
-
-
-        PrintWriter out = response.getWriter();
-
-        try {
-            // Get a connection from dataSource
-            Connection dbcon = dataSource.getConnection();
-            String query ="";
-            PreparedStatement statement = dbcon.prepareStatement(query);
-            ResultSet rs = statement.executeQuery();
-
-
-            while(rs.next())
-            {
-
-            }
-
-
-
-
-
-
-
-
-
-            rs.close();
-            statement.close();
-            dbcon.close();
-        } catch (Exception e) {
-
-            // write error message JSON object to output
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("errorMessage", e.getMessage());
-            out.write(jsonObject.toString());
-
-            // set reponse status to 500 (Internal Server Error)
-            response.setStatus(500);
-
-        }
-        out.close();
-
-    }
 }
