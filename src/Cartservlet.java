@@ -29,11 +29,6 @@ public class Cartservlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         String movieid=request.getParameter("id");
-
-
-
-
-
         PrintWriter out = response.getWriter();
         int flag=0;
         try {
@@ -54,6 +49,7 @@ public class Cartservlet extends HttpServlet {
             }
 
             ArrayList<Items> previousmovies = (ArrayList<Items>) session.getAttribute("previousmovies");
+
             if (previousmovies == null) {
                 previousmovies = new ArrayList<>();
                 Items item=new Items("Shopping Cart is Empty","1");
@@ -69,14 +65,37 @@ public class Cartservlet extends HttpServlet {
             }
 
             else {
-                for(int i=0;i<previousmovies.size();i++){
+                int n=previousmovies.size();
+                for(int i=0;i<n;i++){
                     String str=previousmovies.get(i).getTitle();
                     if(str.equals(movie_title))    flag=1;
+                    String str1=previousmovies.get(i).getNumber();
+                    if(str1.equals("0")) flag=1;
                 }
+//
+                if(n>1) {
+                    String q[];
+                    q=new String[n-1];
+
+                    for (int i = 2; i < 2 * n; i += 2) {
+
+                        String string = i + "";
+                        q[i/2-1]=request.getParameter(string);
+                    }
+                    for(int i=1;i<n;i++){
+                        if(q[i-1]!=""&&q[i-1]!=null) previousmovies.get(i).assignnumber(q[i-1]);
 
 
+                    }
 
 
+                    for(int i=1;i<n;i++){
+                        if(previousmovies.get(i).getNumber().equals("0")) previousmovies.remove(i);
+
+
+                    }
+                }
+//
                 if(!movie_title.equals("")&&flag==0) {
                     synchronized (previousmovies) {
 
@@ -108,6 +127,7 @@ public class Cartservlet extends HttpServlet {
 
                 }
             }
+
             rs.close();
             statement.close();
             dbcon.close();

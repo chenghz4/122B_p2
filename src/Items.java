@@ -17,4 +17,10 @@ public class Items {
     public String getNumber() {
         return number;
     }
+
+    public void assignnumber(String str){
+        this.number=str;
+
+
+    }
 }
