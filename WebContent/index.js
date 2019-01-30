@@ -309,6 +309,69 @@ $("#sort_title").submit((event) => submitsort_t(event));
 
 
 
+function handlesort_raResult(resultDataString) {
+    resultDataJson = JSON.parse(resultDataString);
+    // If login succeeds, it will redirect the user to index.html
+    window.location.replace(
+        "index.html?id="+title+
+        "&year="+year +
+        "&director="+director+
+        "&star="+star+
+        "&page="+page+
+        "&number="+number+
+        "&sort="+resultDataJson["sort_ra"]+
+        "&genres="+genres+
+        "&letters="+letters
+    );
+
+}
+function submitsort_ra(formSubmitEvent) {
+    formSubmitEvent.preventDefault();
+
+    $.post(
+        "api/stars",
+        // Serialize the login form to the data sent by POST request
+        $("#sort_rate_a").serialize(),
+        (resultDataString) => handlesort_raResult(resultDataString)
+);
+}
+$("#sort_rate_a").submit((event) => submitsort_ra(event));
+
+
+
+function handlesort_taResult(resultDataString) {
+    resultDataJson = JSON.parse(resultDataString);
+    // If login succeeds, it will redirect the user to index.html
+    window.location.replace(
+        "index.html?id="+title+
+        "&year="+year +
+        "&director="+director+
+        "&star="+star+
+        "&page="+page+
+        "&number="+number+
+        "&sort="+resultDataJson["sort_ta"]+
+        "&genres="+genres+
+        "&letters="+letters
+    );
+
+}
+function submitsort_ta(formSubmitEvent) {
+    console.log("ss");
+    formSubmitEvent.preventDefault();
+
+    $.post(
+        "api/stars",
+        // Serialize the login form to the data sent by POST request
+        $("#sort_title_a").serialize(),
+        (resultDataString) => handlesort_taResult(resultDataString)
+);
+}
+$("#sort_title_a").submit((event) => submitsort_ta(event));
+
+
+
+
+
 
 /**
  * Once this .js is loaded, following scripts will be executed by the browser

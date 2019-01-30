@@ -36,6 +36,8 @@ public class StarsServlet extends HttpServlet {
         else  page_p=page_global+"";
         String sort_r="a.rating desc";
         String sort_t="a.title desc";
+        String sort_ra="a.rating asc";
+        String sort_ta="a.title asc";
 
         PrintWriter out = response.getWriter();
         JsonObject jsonObject = new JsonObject();
@@ -44,6 +46,8 @@ public class StarsServlet extends HttpServlet {
         jsonObject.addProperty("page_p", page_p);
         jsonObject.addProperty("sort_r", sort_r);
         jsonObject.addProperty("sort_t", sort_t);
+        jsonObject.addProperty("sort_ra", sort_ra);
+        jsonObject.addProperty("sort_ta", sort_ta);
         out.write(jsonObject.toString());
         out.close();
 
