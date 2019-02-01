@@ -100,6 +100,7 @@ public class Cartservlet extends HttpServlet {
                         int size1=previousmovies.size();
                         if(previousmovies.get(counter).getNumber().equals("0")){
                             previousmovies.remove(counter);
+                            size1=previousmovies.size();
                         }
                         else counter++;
 
