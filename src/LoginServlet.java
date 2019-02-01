@@ -102,9 +102,9 @@ public class LoginServlet extends HttpServlet {
                 responseJsonObject.addProperty("status", "fail");
 
                 if (!email.equals("1")) {
-                    responseJsonObject.addProperty("message", "user " + username + " doesn't exist");
+                    responseJsonObject.addProperty("message", "User " + username + " does not exist");
                 } else {
-                    responseJsonObject.addProperty("message", "incorrect password");
+                    responseJsonObject.addProperty("message", "Incorrect Password");
                 }
 
 
