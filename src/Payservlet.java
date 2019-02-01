@@ -99,16 +99,7 @@ public class Payservlet extends HttpServlet {
             statement2.close();
 
 //
-            String query4 = "select count(id) " +
-                    "from sales ";
-            Statement statement4 = dbcon.createStatement();
-            ResultSet rs4 = statement4.executeQuery(query4);
-            String offset="";
-            if(rs4.next()){
-                offset = rs4.getString("count(id)");
-            }
-            rs4.close();
-            statement4.close();
+
 //
 
 
@@ -134,7 +125,23 @@ public class Payservlet extends HttpServlet {
                         if(!movieid.equals("")&&!movienumber.equals("")) {
                             int size=Integer.parseInt(movienumber);
                             for(int j=0;j<size;j++) {
-                                int a=Integer.parseInt(offset)+5+i*size+j;
+
+
+
+                                String query4 = "select count(id) " +
+                                        "from sales ";
+                                Statement statement4 = dbcon.createStatement();
+                                ResultSet rs4 = statement4.executeQuery(query4);
+                                String offset="";
+                                if(rs4.next()){
+                                    offset = rs4.getString("count(id)");
+                                }
+                                rs4.close();
+                                statement4.close();
+
+
+
+                                int a=Integer.parseInt(offset)+6;
                                 data.get(i).assignsaleid(a+"",j);
                                 Date date = new Date(cal.get(Calendar.YEAR) - 1900, cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
                                 PreparedStatement statement3 = dbcon.prepareStatement(query3);
@@ -144,7 +151,7 @@ public class Payservlet extends HttpServlet {
                                 statement3.setDate(4, date);
 
 
-                                statement3.execute();
+                                statement3.executeUpdate();
                                 statement3.close();
                             }
                         }
