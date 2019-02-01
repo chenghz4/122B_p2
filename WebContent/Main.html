@@ -30,10 +30,22 @@ h3 {
 button:hover {
     color: #FFF;
 }
+
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: initial;
+    height: 25px;
+    font-align: center;
+    font-weight: bold;
+    margin-right: 20px;
+    position: absolute;
+    right: 5;
+}
 </style>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,13 +68,10 @@ button:hover {
 
 
 
-<a href="cart.html">Check out</a>
-
-
-
 
 <body class="bodycolor">
 	<h1>Fablix Advanced Search</h1>
+	<a href="cart.html" class="button">Check out</a>
 	<div class="container">
 		<form id="search_form" method="post" action="#">
 			<br>

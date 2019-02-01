@@ -25,7 +25,7 @@ function handleSessionData(resultDataString) {
     console.log(resultArray.length);
     console.log(resultArray);
     let n=resultArray.length;
-
+    let br = "<br>";
     if(n>2) {
         let res = "<ul>";
         for (let i = 2; i < n; i+=2) {
@@ -33,14 +33,15 @@ function handleSessionData(resultDataString) {
             res += "<li>" + resultArray[i]+ "&nbsp"+"&nbsp";//even number is id odd is title
             res += " The quantity of Movie :  "+resultArray[i+1]+"&nbsp";
             res +="&nbsp"+"&nbsp";
-            res += "<input type='text' placeholder='Enter number of movie here' name=" + i + ">";
+            res += "<input type='text' placeholder='Enter quantity' name=" + i + ">";
             res += "</li>";
         }
-        res += "<input type='submit' value='Updated'>";
+        res += "<input type='submit' value='Update Quantity'>";
         res += "</ul>";
 
         // clear the old array and show the new array in the frontend
         $("#movie_list").html("");
+        $("#movie_list").append(br);
         $("#movie_list").append(res);
 
     }
