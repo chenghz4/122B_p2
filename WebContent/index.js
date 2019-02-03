@@ -58,17 +58,44 @@ function handleStarResult(resultData) {
         rowHTML += "<th>" + a + "</th>";
         rowHTML +=
             "<th>" +
-            // Add a link to single-star.html with id passed with GET url parameter
-            '<a href="single-movie.html?id=' + resultData[i]['movie_id'] + '">'
-            + resultData[i]["movie_title"] +     // display star_name for the link text
-            '</a>' +
-            "</th>";
+        // Add a link to single-star.html with id passed with GET url parameter
+        '<a href="single-movie.html?id=' + resultData[i]['movie_id'] + '">'
+        + resultData[i]["movie_title"] +     // display star_name for the link text
+        '</a>' +
+        "</th>";
 
         rowHTML += "<th>" + resultData[i]["movie_year"] + "</th>";
         rowHTML += "<th>" + resultData[i]["movie_director"] + "</th>";
 
        // for(let j=0; j < resultData[i]["list_g"].length;j++)
-        rowHTML += "<th>" + resultData[i]["list_g"] + "</th>";
+        //rowHTML += "<th>" + resultData[i]["list_g"] + "</th>";
+
+        let y=resultData[i]["list_g"].split(",").length;
+        rowHTML +="<th>";
+        for (let u = 0; u < y-1; u++) {
+
+                rowHTML += // Add a link to single-star.html with id passed with GET url parameter
+                    '<a href="index.html?id='+title+'&year='+year+'&director='+director+'&star='+star+'&page='
+                    +page+'&number='+number+'&sort='+sort+'&genres='+resultData[i]["list_g"].split(",")[u]+'&letters='
+                    +letters+'">'
+                    + resultData[i]["list_g"].split(",")[u] + ", "     // display star_name for the link text
+            '</a>';
+
+        }
+
+            rowHTML += // Add a link to single-star.html with id passed with GET url parameter
+                '<a href="index.html?id='+title+'&year='+year+'&director='+director+'&star='+star+'&page='
+                +page+'&number='+number+'&sort='+sort+'&genres='+resultData[i]["list_g"].split(",")[y-1]+'&letters='
+                +letters+'">'
+                + resultData[i]["list_g"].split(",")[y-1] +""     // display star_name for the link text
+        '</a>';
+        rowHTML +="</th>";
+
+
+
+
+
+
 
         let n=resultData[i]["s.id"].split(",").length;
         rowHTML +="<th>";
