@@ -141,7 +141,7 @@ public class Payservlet extends HttpServlet {
 
 
 
-                                int a=Integer.parseInt(offset)+6;
+                                int a=Integer.parseInt(offset)+8;
                                 data.get(i).assignsaleid(a+"",j);
                                 Date date = new Date(cal.get(Calendar.YEAR) - 1900, cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
                                 PreparedStatement statement3 = dbcon.prepareStatement(query3);
@@ -165,6 +165,25 @@ public class Payservlet extends HttpServlet {
                 responseJsonObject.addProperty("message", "success");
 
                 out.write(responseJsonObject.toString());
+                
+                String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+                System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
+
+                // Verify reCAPTCHA
+                try {
+                    RecaptchaVerifyUtils.verify(gRecaptchaResponse);
+                } catch (Exception e) {
+                    out.println("<html>");
+                    out.println("<head><title>Error</title></head>");
+                    out.println("<body>");
+                    out.println("<p>recaptcha verification error</p>");
+                    out.println("<p>" + e.getMessage() + "</p>");
+                    out.println("</body>");
+                    out.println("</html>");
+                    
+                    out.close();
+                    return;
+                }
             }
             else {
                 // Login fails
